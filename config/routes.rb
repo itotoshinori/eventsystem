@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  
+  get 'events/new'
+
+  get 'events/index'
+
+  get 'events/edit'
+  resources :events
   root :to => 'infos#index'
 
   devise_for :users, :controllers => {
