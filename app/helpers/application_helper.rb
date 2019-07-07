@@ -6,4 +6,8 @@ module ApplicationHelper
       @dateweek=dateweek
     end
   end
+  def youbi(d)
+    
+    
+  end
 end

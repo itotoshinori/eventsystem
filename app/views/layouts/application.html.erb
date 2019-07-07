@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all',
                                'data-turbolinks-track': 'reload' %>
@@ -19,15 +18,24 @@
         <%= link_to "sample app", '#', id: "logo" %>
         <nav>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home",   '#' %></li>
+            <li><%= link_to "New",   '/events/new' %></li>
             <li><%= link_to "Help",   '#' %></li>
             <li><%= link_to "Log in", '#' %></li>
           </ul>
         </nav>
       </div>
     </header>
+    
+    <body>
     <div class="container">
-      <%= yield %>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <div class="container">
+        <%= yield %>
+      </div>
+      <%= debug(params) if Rails.env.development? %>
     </div>
+  </body>
   </body>
 </html>
