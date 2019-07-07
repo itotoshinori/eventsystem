@@ -1,22 +1,47 @@
-<% provide(:title, '新規登録') %>
+<title>イベント新規登録</title>
 <h1>イベント新規登録</h1>
 <body>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@event) do |f| %>
-      <%#= render 'shared/error_messages', object: f.object %>
+    <p>
+      <% if @event.errors.messages[:title].any? %>
+        <span class="error"><%= @event.errors.messages[:title][0] %></span>
+      <% end %>
+    </p>
       <%= f.label :イベント名 %>
-      <%= f.text_field :title, class: 'form-control' %>
+      <%= f.text_field :title, placeholder: 'enter イベント名',class: 'form-control' %>
+      <p>
+      <%= f.label :イベントの詳細 %><br>
+	    <%= f.text_area :note, placeholder: 'enter イベント詳細',cols:65,rows:10 %>
+      <% if @event.errors.messages[:note].any? %>
+        <span class="error"><%= @event.errors.messages[:note][0] %></span>
+      <% end %>
+      </p>
       <%= f.label :開催予定日時 %><br>
-      <%#= c.collection_select :country_id, Country.all, :id, :country_name %>
       <%= f.collection_select :opendate, @dates, :id, :dateweek, class: 'form-control' %>
       <%= time_select  'starttime','' %>-
-      <%= time_select  'finishtime',''%><br><br>
-      <%= f.label :場所 %>
-      <%= f.email_field :place, class: 'form-control' %>
+      <%= time_select  'finishtime',''%><br>
+      <p>
+      <%= f.label :会場の場所 %><br>
+      <%= f.text_field :place, placeholder:'enter 会場' %>
+      <% if @event.errors.messages[:place].any? %>
+        <span class="error"><%= @event.errors.messages[:place][0] %></span>
+      <% end %>
+      </p>
       <%= f.label :場所リンク %>
-      <%= f.text_field :placelink, class: 'form-control' %>
+      <%= f.url_field :placelink, placeholder:'enter 場所のUrl',class: 'form-control' %>
       <br>
+      <p>
+      <%= f.label :参加費 %><br>
+      <%= f.number_field :money,value:0 %>
+        <% if @event.errors.messages[:money].any? %>
+          <%= @event.errors.messages[:money][0] %>
+        <% end %>
+      <p></p>
+      <%= f.label :定員 %><br>
+      <%= f.number_field :capacity,value:10 %>
+      </p>
       <%= f.submit "新規登録", class: "btn btn-primary" %>
     <% end %>
     <p><center>
