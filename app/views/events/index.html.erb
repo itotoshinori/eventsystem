@@ -1,2 +1,18 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<% require "date" %>
+<title>募集中イベント一覧</title>
+<h1>イベント一覧</h1>
+<center><%= link_to 'Search', 'http://www.google.co.jp/' %>
+<table border="1" class="table-bordered table-condensed table table-striped">
+  <tr>
+    <th>イベント名</th><th>開催日</th><th>開始時間</th><th>場所</th><th width="80">定員</th><th width="80">参加人数</th>
+  </tr>
+<% @event.each do |f| %>
+  <tr>
+    <td><%= link_to(f.title, event_path(f.id)) %></td>
+    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=f.place %></td><td><%=f.capacity %></td><td>0</td>
+  </tr>
+<% end %>
+</table>
+</center>
+<br><br>
+

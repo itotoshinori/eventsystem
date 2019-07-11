@@ -4,14 +4,12 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@event) do |f| %>
-    <p>
-      
-    </p>
+    <p></p>
       <%= f.label :イベント名 %>
       <% if @event.errors.messages[:title].any? %>
         <b><font color="red"><%= @event.errors.messages[:title][0] %></font></b>
       <% end %>
-      <%= f.text_field :title, placeholder: 'enter イベント名',class: 'form-control' %>
+      <%= f.text_field :title, placeholder: 'enter イベント名',class: 'form-control' ,value:@event.title %>
       <p>
       <%= f.label :イベントの詳細 %>
       <% if @event.errors.messages[:note].any? %>
@@ -24,13 +22,13 @@
       <%= f.time_select :starttime, default: { hour:@starthour, min:@startmin } %>-
       <%= f.time_select :finishtime, default: { hour:@finishhour, min:@finishmin } %><br>
       <p>
-      <%= f.label :会場の場所 %>
+      <%= f.label :場所 %>(Zoomの場合はZoomと記入下さい）
       <% if @event.errors.messages[:place].any? %>
         <b><font color="red"><%= @event.errors.messages[:place][0] %></font></b>
       <% end %><br>
       <%= f.text_field :place, placeholder:'enter 会場' %>
       </p>
-      <%= f.label :場所リンク %>
+      <%= f.label :場所リンク %>(Zoomの場合はUrlを入力願います)
       <%= f.url_field :placelink, placeholder:'enter 場所のUrl',class: 'form-control' %>
       <br>
       <p>

@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
    before_action :timeselect,   only: [:new,:create]
+   before_action :authenticate_user!
   require 'date'
   require 'active_support/core_ext/date'
   def new
@@ -36,6 +37,11 @@ class EventsController < ApplicationController
   end
 
   def index
+    @event=Event.all.order(opendate: "ASC")
+    #@event=Event.all.order(opendate: "DESC")
+  end
+  def show
+    @event = Event.find(params[:id])
   end
 
   def edit
