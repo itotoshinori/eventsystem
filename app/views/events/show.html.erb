@@ -9,6 +9,7 @@
   <tr><td>主催者</td><td><%= usernamereturn(@event.user_id) %></td></tr>
   <tr><td>開始日時</td><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
   <tr><td>開催場所</td>
+  
   <td>
   <% if @event.placelink.present? %>
     <%= link_to(@event.place, @event.placelink) %>
