@@ -30,4 +30,10 @@ module EventsHelper
         end
         kekka
     end
+    def usernamereturn(i)
+        if i.present?
+            user=User.find(i)
+            user.name
+        end
+    end
 end

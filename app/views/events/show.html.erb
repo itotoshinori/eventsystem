@@ -1,13 +1,24 @@
+<div class="col-md-6 col-md-offset-3">
 <h1>Events#show</h1>
-<center><%= link_to 'Search', 'http://www.google.co.jp/' %>
+<%= link_to 'Search', 'http://www.google.co.jp/' %>
 <table border="1" class="table-bordered table-condensed table table-striped">
   <tr>
-    <th>イベント名</th><th>開催日</th><th>開始時間</th><th>場所</th><th width="80">定員</th><th width="80">参加人数</th>
+    <th width="150">項目</th><th width="300">内容</th>
   </tr>
-
-  <tr>
-    <td><%= link_to(@event.title, event_path(@event.id)) %></td>
-    <td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)</td><td><%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td><td><%=@event.place %></td><td><%=@event.capacity %></td><td>0</td>
-  </tr>
+  <tr><td>タイトル</td><td><%= link_to(@event.title, event_path(@event.id)) %></td></tr>
+  <tr><td>主催者</td><td><%= usernamereturn(@event.user_id) %></td></tr>
+  <tr><td>開始日時</td><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
+  <tr><td>開催場所</td>
+  <td>
+  <% if @event.placelink.present? %>
+    <%= link_to(@event.place, @event.placelink) %>
+  <% else %>
+    <%=@event.place %>
+  <% end %>
+  </td></tr>
+  <tr><td>詳細</td></td><td><%= simple_format(@event.note)  %></td></tr>
+  <tr><td>参加費</td></td><td><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
+  <tr><td>定員</td></td><td><%=@event.capacity %>名</td></tr>
+  <tr><td>参加者</td></td><td>（〇名）</td></tr>
 </table>
-</center>
+</div>
