@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-   before_action :timeselect,   only: [:new,:create]
+   before_action :timeselect,   only: [:new,:create,:edit,:update]
    before_action :authenticate_user!
   require 'date'
   require 'active_support/core_ext/date'
@@ -18,14 +18,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(event_params)
-    sdate=@event.opendate
-    @starthour=@event.starttime.hour
-    @startmin=@event.starttime.min
-    @finishhour=@event.finishtime.hour
-    @finishmin=@event.finishtime.min
-    @money=@event.money
-    @capacity=@event.capacity
-    @sdate=Date.new(sdate.year, sdate.month, sdate.day)
+    settingvalue
     
     if @event.save
       flash[:success]="正常に登楼されました"
@@ -45,6 +38,19 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:id])
+    settingvalue
+  end
+  def update
+    @event = Event.find(params[:id])
+    settingvalue
+    if @event.update(event_params)
+      flash[:success]="正常に登録されました"
+      redirect_to("/events/index")
+    else
+      flash[:warning]="登録に失敗しました"
+      render 'edit'
+    end
   end
 
   private
@@ -60,5 +66,15 @@ class EventsController < ApplicationController
       iw=c.strftime("%Y年%-m月%-d日 %a")
       @dates << Datecollection.new(date,iw)
     end
+  end
+  def settingvalue
+    sdate=@event.opendate
+    @starthour=@event.starttime.hour
+    @startmin=@event.starttime.min
+    @finishhour=@event.finishtime.hour
+    @finishmin=@event.finishtime.min
+    @money=@event.money
+    @capacity=@event.capacity
+    @sdate=Date.new(sdate.year, sdate.month, sdate.day)
   end
 end

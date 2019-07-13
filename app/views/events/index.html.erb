@@ -8,8 +8,8 @@
   </tr>
 <% @event.each do |f| %>
   <tr>
-    <td><%= link_to(f.title, event_path(f.id)) %></td>
-    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=f.place %></td><td><%=f.capacity %></td><td>0</td>
+    <td><%= link_to(mojiseigen(f.title,15), event_path(f.id)) %></td>
+    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=mojiseigen(f.place,10) %></td><td><%=f.capacity %></td><td>0</td>
   </tr>
 <% end %>
 </table>

@@ -9,7 +9,6 @@
   <tr><td>主催者</td><td><%= usernamereturn(@event.user_id) %></td></tr>
   <tr><td>開始日時</td><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
   <tr><td>開催場所</td>
-  
   <td>
   <% if @event.placelink.present? %>
     <%= link_to(@event.place, @event.placelink) %>
@@ -17,9 +16,14 @@
     <%=@event.place %>
   <% end %>
   </td></tr>
-  <tr><td>詳細</td></td><td><%= simple_format(@event.note)  %></td></tr>
+  <tr><td>詳細</td></td><td><%=raw Rinku.auto_link(simple_format(@event.note)) %></td></tr>
   <tr><td>参加費</td></td><td><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
   <tr><td>定員</td></td><td><%=@event.capacity %>名</td></tr>
   <tr><td>参加者</td></td><td>（〇名）</td></tr>
 </table>
+<center>
+  <% if current_user.id==@event.user_id %>
+    <h3><%= link_to "修正","/events/"+@event.id.to_s+"/edit" ,class: "btn btn-primary"%></h3>
+  <% end %>
+</center>
 </div>
