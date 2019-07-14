@@ -1,6 +1,11 @@
 <div class="col-md-6 col-md-offset-3">
 <h1>Events#show</h1>
-<%= link_to 'Search', 'http://www.google.co.jp/' %>
+<% if current_user.id==@event.user_id %>
+    <center><h3><%= link_to "修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
+<% end %>
+<p><center>
+     <A HREF="javascript:history.back()">前のページに戻る</A>
+</center></p>
 <table border="1" class="table-bordered table-condensed table table-striped">
   <tr>
     <th width="150">項目</th><th width="300">内容</th>
@@ -19,11 +24,33 @@
   <tr><td>詳細</td></td><td><%=raw Rinku.auto_link(simple_format(@event.note)) %></td></tr>
   <tr><td>参加費</td></td><td><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
   <tr><td>定員</td></td><td><%=@event.capacity %>名</td></tr>
-  <tr><td>参加者</td></td><td>（〇名）</td></tr>
+  <tr><td>参加者</td></td>
+  <td>
+    <% i=0 %>
+    <% @sankasha.each do |s| %>
+      <%= "#{usernamereturn(s.user_id)}さん　" %>
+      <% i=i+1 %>
+      <% if i/2==0 %>
+        <br>
+      <% end %>
+    <% end %>
+    <%= i %>名
+  </td></tr>
 </table>
 <center>
-  <% if current_user.id==@event.user_id %>
-    <h3><%= link_to "修正","/events/"+@event.id.to_s+"/edit" ,class: "btn btn-primary"%></h3>
+  <% nokori=@event.capacity-i %>
+  <% now = Time.current %>
+  <% if @event.opendate>now and nokori>0 and @sanka.empty? %> 
+     <% title="参加" %>
+     <% kubun=1 %>
+  <% elsif @event.opendate>now and  @sanka.present? %>
+      <% title="取消" %>
+      <% kubun=2 %>
   <% end %>
+  <% if kubun.to_i>=1 %>
+    <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun}, {method: :post, class: "btn btn-primary"} %>
+  <% end %>    
 </center>
 </div>
+
+<br>

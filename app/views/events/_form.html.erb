@@ -11,8 +11,8 @@
       <%= f.label :イベントの詳細 %>
       <% if @event.errors.messages[:note].any? %>
          <b><font color="red"><%= @event.errors.messages[:note][0] %></font></b>
-      <% end %>
-	    <%= f.text_area :note, placeholder: 'enter イベント詳細',cols:65,rows:10 %>
+      <% end %><br>
+	    <%= f.text_area :note, placeholder: 'enter イベント詳細',cols:40,rows:10 %>
       </p>
       <%= f.label :開催予定日時 %><br>
       <%= f.collection_select :opendate, @dates, :id, :dateweek, :selected=>@sdate,class: 'form-control' %>
@@ -39,7 +39,7 @@
       <%= f.number_field :capacity,value:@capacity %>
       </p>
       <%= f.hidden_field :user_id,value:current_user.id %>
-      <%= f.submit "編集", class: "btn btn-primary" %>
+      <%= f.submit "実行", class: "btn btn-primary" %>
     <% end %>
     <p><center>
      <A HREF="javascript:history.back()">前のページに戻る</A>

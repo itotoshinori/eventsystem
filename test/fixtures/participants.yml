@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  event_id: 
+  cancel: 
+  default: MyString
+  false,: MyString
+  'null': MyString
+  'false': MyString
+
+two:
+  user_id: 
+  event_id: 
+  cancel: 
+  default: MyString
+  false,: MyString
+  'null': MyString
+  'false': MyString

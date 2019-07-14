@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  post 'events/indexpast'
+  
+  get  'events/indexpast'
+  
+  post 'events/attendance'
   
   get 'events/new'
 
@@ -6,6 +11,7 @@ Rails.application.routes.draw do
 
   get 'events/edit'
   resources :events
+  
   root :to => 'infos#index'
 
   devise_for :users, :controllers => {

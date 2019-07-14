@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-   before_action :timeselect,   only: [:new,:create,:edit,:update]
-   before_action :authenticate_user!
+  before_action :timeselect,   only: [:new,:create,:edit,:update]
+  before_action :authenticate_user!
   require 'date'
   require 'active_support/core_ext/date'
   def new
@@ -21,7 +21,7 @@ class EventsController < ApplicationController
     settingvalue
     
     if @event.save
-      flash[:success]="正常に登楼されました"
+      flash[:success]="正常に登録されました"
       redirect_to("/events/index")
     else
       flash[:warning]="登録に失敗しました"
@@ -30,11 +30,19 @@ class EventsController < ApplicationController
   end
 
   def index
-    @event=Event.all.order(opendate: "ASC")
-    #@event=Event.all.order(opendate: "DESC")
+    now = Time.current
+    @event=Event.where('opendate >= ?', now).order(opendate: "ASC")
   end
+  def indexpast
+    now = Time.current
+    @event=Event.where('opendate < ?', now).order(opendate: "desc")
+  end
+  
   def show
     @event = Event.find(params[:id])
+    @sankasha=Participant.all
+    @sankasha=Participant.where(event_id:@event.id)
+    @sanka=Participant.where(event_id:@event.id,user_id:current_user.id)
   end
 
   def edit
@@ -46,11 +54,28 @@ class EventsController < ApplicationController
     settingvalue
     if @event.update(event_params)
       flash[:success]="正常に登録されました"
-      redirect_to("/events/index")
+      redirect_to("/events/#{@event.id}")
     else
       flash[:warning]="登録に失敗しました"
       render 'edit'
     end
+  end
+  def attendance
+    event_id=params[:id]
+    kubun=params[:kubun]
+    user_id=current_user.id
+    if kubun=="1"
+      sanka=Participant.new(user_id:user_id,event_id:event_id)
+      sanka.save
+      flash[:success]="正常に参加登録されました"
+    elsif kubun=="2"
+      sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
+      sanka.destroy
+      flash[:success]="#{sanka.event_id}に正常にキャンセルされました。またのご利用をお願いします(Test中)"
+    else
+        flash[:warning]="登録失敗しました"
+    end
+    redirect_to("/events/#{event_id}")
   end
 
   private

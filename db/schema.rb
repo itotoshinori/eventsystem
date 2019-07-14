@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190706211057) do
+ActiveRecord::Schema.define(version: 20190714005505) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20190706211057) do
     t.integer "capacity"
     t.integer "openmethod"
     t.boolean "held", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.boolean "cancel", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

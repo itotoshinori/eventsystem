@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
-    validates :title, presence: true, length: { maximum: 20, message: 'タイトルが長すぎます' }
+    has_many :participants
+    validates :title, presence: true
     validates :note, presence: true
     validates :place, presence: true
     validates :opendate, presence: true
