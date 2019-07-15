@@ -1,9 +1,10 @@
 class MailsysMailer < ApplicationMailer
   default from: 'no-replay@eventmail.com'
 
-  def sendmail(str,link)
+  def sendmail(str,link,mailad)
     @str = str
     @link=link
-    mail(to: "tito40358@gmail.com", subject: "イベント管理システムからのメールです")
+    @mailad=mailad
+    mail(to: mailad, subject: "イベント管理システムからのメールです")
   end
 end

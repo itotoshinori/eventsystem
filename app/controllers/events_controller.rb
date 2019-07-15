@@ -23,7 +23,8 @@ class EventsController < ApplicationController
     if @event.save
       link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
       content="#{@event.title}の新規イベントが登録されました。参加ご検討下さい"
-      MailsysMailer.sendmail(content,link).deliver_later  #メーラに作成したメソッドを呼び出す。
+      user=User.find(@event.user_id)
+      MailsysMailer.sendmail(content,link,user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
       flash[:success]="正常に登録され、会員全員にメールを送りました。"
       redirect_to("/events/index")
     else
@@ -33,12 +34,10 @@ class EventsController < ApplicationController
   end
 
   def index
-    now = Time.current
-    @event=Event.where('opendate >= ?', now).order(opendate: "ASC")
+    @event=Event.where('opendate >= ?',nowday).order(opendate: "ASC")
   end
   def indexpast
-    now = Time.current
-    @event=Event.where('opendate < ?', now).order(opendate: "desc")
+    @event=Event.where('opendate < ?',nowday).order(opendate: "desc")
   end
   
   def show
@@ -105,4 +104,9 @@ class EventsController < ApplicationController
     @capacity=@event.capacity
     @sdate=Date.new(sdate.year, sdate.month, sdate.day)
   end
+  def nowday
+    now = Time.current
+    today=Date.new(now.year, now.month, now.day)
+    today
+  end  
 end
