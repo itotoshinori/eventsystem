@@ -21,10 +21,10 @@ class EventsController < ApplicationController
     settingvalue
     
     if @event.save
-      flash[:success]="正常に登録され、会員全員にメールを送りました。"
-      content="新規イベントが登録されました。参加ご検討下さい"
       link="https://young-gorge-92470.herokuapp.com/events/#{@evevt.id}"
-      MailsysMailer.sendmail(content,link).deliver_later  #メーラに作成したメソッドを呼び出す。
+      content="#{@evevt.title}の新規イベントが登録されました。参加ご検討下さい<br>"+link
+      MailsysMailer.sendmail(content).deliver_later  #メーラに作成したメソッドを呼び出す。
+      flash[:success]="正常に登録され、会員全員にメールを送りました。"
       redirect_to("/events/index")
     else
       flash[:warning]="登録に失敗しました"
