@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post '/mail', to: 'events#mail', as: :mail;
+  
   post 'events/indexpast'
   
   get  'events/indexpast'

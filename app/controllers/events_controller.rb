@@ -21,7 +21,9 @@ class EventsController < ApplicationController
     settingvalue
     
     if @event.save
-      flash[:success]="正常に登録されました"
+      flash[:success]="正常に登録され、会員全員にメールを送りました。"
+      link="https://blooming-reef-85835.herokuapp.com/posts/"
+      MailsysMailer.sendmail(link).deliver_later  #メーラに作成したメソッドを呼び出す。
       redirect_to("/events/index")
     else
       flash[:warning]="登録に失敗しました"
@@ -77,7 +79,7 @@ class EventsController < ApplicationController
     end
     redirect_to("/events/#{event_id}")
   end
-
+  
   private
   def event_params
      params.require(:event).permit(:title, :note,:place,:placelink,:opendate,:starttime,:finishtime,:money,:capacity,:user_id)
