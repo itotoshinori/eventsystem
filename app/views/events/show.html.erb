@@ -1,7 +1,7 @@
 <div class="col-md-6 col-md-offset-3">
-<h1>Events#show</h1>
+<h1>イベントの詳細</h1>
 <% if current_user.id==@event.user_id %>
-    <center><h3><%= link_to "修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
+    <center><h3><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
 <% end %>
 <p><center>
      <A HREF="javascript:history.back()">前のページに戻る</A>
@@ -28,11 +28,8 @@
   <td>
     <% i=0 %>
     <% @sankasha.each do |s| %>
-      <%= "#{usernamereturn(s.user_id)}さん　" %>
+      <%= "#{usernamereturn(s.user_id)}さん　" %><br>
       <% i=i+1 %>
-      <% if i/2==0 %>
-        <br>
-      <% end %>
     <% end %>
     <%= i %>名
   </td></tr>

@@ -76,7 +76,7 @@ class EventsController < ApplicationController
     elsif kubun=="2"
       sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
       sanka.destroy
-      flash[:success]="#{sanka.event_id}に正常にキャンセルされました。またのご利用をお願いします(Test中)"
+      flash[:success]="キャンセルされました。またのご利用をお願いします"
     else
         flash[:warning]="登録失敗しました"
     end
