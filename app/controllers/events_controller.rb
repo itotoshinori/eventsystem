@@ -22,10 +22,13 @@ class EventsController < ApplicationController
     
     if @event.save
       link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
-      content="#{@event.title}のリンク"
-      user=User.find(@event.user_id)
-      MailsysMailer.sendmail(content,link,user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
-      flash[:success]="正常に登録され、#{user.email}にメールを送りました。"
+      content="開催イベント：#{@event.title}"
+      #user=User.find(@event.user_id)
+      user=User.all
+      user.each do |u|
+        MailsysMailer.sendmail(content,link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+      flash[:success]="正常に登録され、会員にメールを送りました。"
       redirect_to("/events/index")
     else
       flash[:warning]="登録に失敗しました"
