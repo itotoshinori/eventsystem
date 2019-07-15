@@ -25,7 +25,7 @@ class EventsController < ApplicationController
       content="#{@event.title}の新規イベントが登録されました。参加ご検討下さい"
       user=User.find(@event.user_id)
       MailsysMailer.sendmail(content,link,user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
-      flash[:success]="正常に登録され、会員全員にメールを送りました。"
+      flash[:success]="正常に登録され、#{user.email}にメールを送りました。"
       redirect_to("/events/index")
     else
       flash[:warning]="登録に失敗しました"
