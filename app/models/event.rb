@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+    attr_accessor :sendmailmethod
     has_many :participants
     validates :title, presence: true
     validates :note, presence: true

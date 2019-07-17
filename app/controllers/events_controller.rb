@@ -44,6 +44,13 @@ class EventsController < ApplicationController
   end
   
   def show
+    if session[:geturl].present?
+      @url=session[:geturl]
+      session.delete(:geturl)
+    else
+      @url=request.referer
+    end
+    
     @event = Event.find(params[:id])
     @sankasha=Participant.all
     @sankasha=Participant.where(event_id:@event.id)
@@ -67,25 +74,27 @@ class EventsController < ApplicationController
   end
   def attendance
     event_id=params[:id]
-    kubun=params[:kubun]
+    @kubun=params[:kubun]
+    url=params[:url]
     user_id=current_user.id
-    if kubun=="1"
+    if @kubun=="1"
       sanka=Participant.new(user_id:user_id,event_id:event_id)
       sanka.save
       flash[:success]="正常に参加登録されました"
-    elsif kubun=="2"
+    elsif @kubun=="2"
       sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
       sanka.destroy
-      flash[:success]="キャンセルされました。またのご利用をお願いします"
+      flash[:success]="キャンセルされました。またのご利用をお願いします."
     else
-        flash[:warning]="登録失敗しました"
+        flash[:warning]="登録失��しました"
     end
+    session[:geturl]=url
     redirect_to("/events/#{event_id}")
   end
   
   private
   def event_params
-     params.require(:event).permit(:title, :note,:place,:placelink,:opendate,:starttime,:finishtime,:money,:capacity,:user_id)
+     params.require(:event).permit(:title, :note,:place,:placelink,:opendate,:starttime,:finishtime,:money,:capacity,:user_id,:sendmailmethod)
   end
   def timeselect
       now = Time.current
@@ -111,5 +120,8 @@ class EventsController < ApplicationController
     now = Time.current
     today=Date.new(now.year, now.month, now.day)
     today
-  end  
+  end
+  def set(u)
+    @u=u
+  end
 end

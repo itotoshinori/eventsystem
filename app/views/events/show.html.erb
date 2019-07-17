@@ -4,7 +4,9 @@
     <center><h3><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
 <% end %>
 <p><center>
-     <A HREF="javascript:history.back()">前のページに戻る</A>
+  <% if @url %>
+    <%= link_to("前のページに戻る",@url) %>
+  <% end %>
 </center></p>
 <table border="1" class="table-bordered table-condensed table table-striped">
   <tr>
@@ -45,7 +47,7 @@
       <% kubun=2 %>
   <% end %>
   <% if kubun.to_i>=1 %>
-    <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun}, {method: :post, class: "btn btn-primary"} %>
+    <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-primary"} %>
   <% end %>    
 </center>
 </div>
