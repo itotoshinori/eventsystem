@@ -79,9 +79,11 @@ class EventsController < ApplicationController
     user_id=current_user.id
     if @kubun=="1"
       sanka=Participant.new(user_id:user_id,event_id:event_id)
+      url=nil
       sanka.save
       flash[:success]="正常に参加登録されました"
     elsif @kubun=="2"
+      url=nil
       sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
       sanka.destroy
       flash[:success]="キャンセルされました。またのご利用をお願いします."
