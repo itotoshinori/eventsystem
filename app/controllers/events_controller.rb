@@ -46,11 +46,10 @@ class EventsController < ApplicationController
   def show
     if session[:geturl].present?　
       @url=session[:geturl]
-      #session.delete(:geturl)
+      session.delete(:geturl)
     else
       @url=request.referer
     end
-    session.delete(:geturl)
     @event = Event.find(params[:id])
     @sankasha=Participant.all
     @sankasha=Participant.where(event_id:@event.id)
@@ -79,11 +78,9 @@ class EventsController < ApplicationController
     user_id=current_user.id
     if @kubun=="1"
       sanka=Participant.new(user_id:user_id,event_id:event_id)
-      url=nil
       sanka.save
       flash[:success]="正常に参加登録されました"
     elsif @kubun=="2"
-      url=nil
       sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
       sanka.destroy
       flash[:success]="キャンセルされました。またのご利用をお願いします."
