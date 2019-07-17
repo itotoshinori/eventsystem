@@ -44,13 +44,13 @@ class EventsController < ApplicationController
   end
   
   def show
-    if session[:geturl].present?
+    if session[:geturl].present?　
       @url=session[:geturl]
-      session.delete(:geturl)
+      #session.delete(:geturl)
     else
       @url=request.referer
     end
-    
+    session.delete(:geturl)
     @event = Event.find(params[:id])
     @sankasha=Participant.all
     @sankasha=Participant.where(event_id:@event.id)
@@ -88,7 +88,7 @@ class EventsController < ApplicationController
       sanka.destroy
       flash[:success]="キャンセルされました。またのご利用をお願いします."
     else
-        flash[:warning]="登録失��しました"
+        flash[:warning]="登録失敗しました"
     end
     session[:geturl]=url
     redirect_to("/events/#{event_id}")
