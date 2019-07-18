@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get 'events/edit'
   
+  post '/events/:id', to: 'events#show'
   resources :events
   
   root :to => 'infos#index'

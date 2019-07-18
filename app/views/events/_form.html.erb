@@ -39,7 +39,8 @@
       <%= f.number_field :capacity,value:@capacity %>
       </p>
       <%= f.hidden_field :sendmailmethod,value:current_user.id %>
-      <%= f.select :sendmailmethod, [["登録のみ", 1], ["出席者にメールを送る", 2], ["会員全員にメールを送る", 3]] %>
+      <%= f.label :通知方法 %><br>
+      <%= f.select :sendmailmethod, [["登録のみ", 1], ["出席者にメールを送る", 2], ["会員全員にメールを送る", 3]] %><br><br>
       <%= f.hidden_field :user_id,value:current_user.id %>
       <%= f.submit "実行", class: "btn btn-primary" %>
     <% end %>

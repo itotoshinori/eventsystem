@@ -21,13 +21,14 @@ class EventsController < ApplicationController
     settingvalue
     
     if @event.save
-      link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
-      content="開催イベント：#{@event.title}"
+      @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}"
       #user=User.find(@event.user_id)
-      user=User.all
-      user.each do |u|
-        MailsysMailer.sendmail(content,link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
-      end
+      sendmailall
+      #user=User.all
+      #user.each do |u|
+        #MailsysMailer.sendmail(content,link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+      #end
       flash[:success]="正常に登録され、会員にメールを送りました。"
       redirect_to("/events/index")
     else
@@ -64,7 +65,9 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     settingvalue
     if @event.update(event_params)
-      flash[:success]="正常に登録されました"
+      if @event.sendmailmethod=="3"
+        flash[:success]="正常に編集され会員全員にメールを送りました。"
+      end
       redirect_to("/events/#{@event.id}")
     else
       flash[:warning]="登録に失敗しました"
@@ -83,12 +86,13 @@ class EventsController < ApplicationController
     elsif @kubun=="2"
       sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
       sanka.destroy
-      flash[:success]="キャンセルされました。またのご利用をお願いします."
+      flash[:success]="キャンセルされました。またのご利用をお願いします。"
     else
-        flash[:warning]="登録失敗しました"
+      flash[:warning]="登録失敗しました"
     end
     session[:geturl]=url
     redirect_to("/events/#{event_id}")
+    #render "/events/#{event_id}"
   end
   
   private
@@ -119,6 +123,12 @@ class EventsController < ApplicationController
     now = Time.current
     today=Date.new(now.year, now.month, now.day)
     today
+  end
+  def sendmailall
+    user=User.all
+      user.each do |u|
+        MailsysMailer.sendmail(@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
   end
   def set(u)
     @u=u
