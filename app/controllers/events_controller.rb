@@ -44,12 +44,12 @@ class EventsController < ApplicationController
   end
   
   def show
-    if session[:geturl].present?　
-      @url=session[:geturl]
-      session.delete(:geturl)
-    else
+    #if session[:geturl].present?　
+      #@url=session[:geturl]
+      #session.delete(:geturl)
+    #else
       @url=request.referer
-    end
+    #end
     @event = Event.find(params[:id])
     @sankasha=Participant.all
     @sankasha=Participant.where(event_id:@event.id)
