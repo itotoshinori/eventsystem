@@ -23,12 +23,8 @@ class EventsController < ApplicationController
     if @event.save
       @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
       @content="開催イベント：#{@event.title}"
-      #user=User.find(@event.user_id)
-      sendmailall
-      #user=User.all
-      #user.each do |u|
-        #MailsysMailer.sendmail(content,link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
-      #end
+      @user=User.all
+      sendmailsys
       flash[:success]="正常に登録され、会員にメールを送りました。"
       redirect_to("/events/index")
     else
@@ -124,13 +120,9 @@ class EventsController < ApplicationController
     today=Date.new(now.year, now.month, now.day)
     today
   end
-  def sendmailall
-    user=User.all
-      user.each do |u|
-        MailsysMailer.sendmail(@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
-      end
-  end
-  def set(u)
-    @u=u
+  def sendmailsys
+    @user.each do |u|
+      MailsysMailer.sendmail(@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+    end
   end
 end
