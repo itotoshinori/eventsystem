@@ -68,8 +68,8 @@ class EventsController < ApplicationController
         sendmailsysc
         flash[:success]="正常に編集され会員全員にメールを送りました。"
       elsif @event.sendmailmethod=="2"
-        @user=Event.joins(:user).where(event_id:@event.id)
-        sendmailsysc2
+        @user=Event.joins(:user).where(id:@event.id)
+        sendmailsys2
         flash[:success]="正常に編集され参加者にメールを送りました。"
       end
       redirect_to("/events/#{@event.id}")
