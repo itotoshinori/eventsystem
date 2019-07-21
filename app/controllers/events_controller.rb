@@ -60,9 +60,17 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     settingvalue
+      @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}が編集されました"
     if @event.update(event_params)
       if @event.sendmailmethod=="3"
+        @user=User.all
+        sendmailsysc
         flash[:success]="正常に編集され会員全員にメールを送りました。"
+      elsif @event.sendmailmethod=="2"
+        @user=Event.joins(:user).where(event_id:@event.id)
+        sendmailsysc2
+        flash[:success]="正常に編集され参加者にメールを送りました。"
       end
       redirect_to("/events/#{@event.id}")
     else
@@ -124,6 +132,11 @@ class EventsController < ApplicationController
   def sendmailsys
     @user.each do |u|
       MailsysMailer.sendmail(@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+    end
+  end
+  def sendmailsys2
+    @user.each do |u|
+      MailsysMailer.sendmail(@content,@link,u.user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
     end
   end
 end
