@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
   require 'date'
   require 'active_support/core_ext/date'
+  include EventsHelper
   def new
     now = Time.current
     sdate=now.since(7.days)
@@ -79,23 +80,32 @@ class EventsController < ApplicationController
     end
   end
   def attendance
-    event_id=params[:id]
+    @event = Event.find(params[:id])
+    #event_id=params[:id]
     @kubun=params[:kubun]
     url=params[:url]
     user_id=current_user.id
     if @kubun=="1"
-      sanka=Participant.new(user_id:user_id,event_id:event_id)
+      sanka=Participant.new(user_id:user_id,event_id:@event.id)
       sanka.save
+      @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
+      @user=User.where(id:@event.user_id)
+      sendmailsys
       flash[:success]="正常に参加登録されました"
     elsif @kubun=="2"
-      sanka=@participant=Participant.find_by(event_id: event_id.to_i, user_id: current_user.id)
+      sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: current_user.id)
       sanka.destroy
+      @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
+      @user=User.where(id:@event.user_id)
+      sendmailsys
       flash[:success]="キャンセルされました。またのご利用をお願いします。"
     else
       flash[:warning]="登録失敗しました"
     end
     session[:geturl]=url
-    redirect_to("/events/#{event_id}")
+    redirect_to("/events/#{@event.id}")
     #render "/events/#{event_id}"
   end
   
