@@ -61,24 +61,35 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     settingvalue
+    sendmail=event_params[:sendmailmethod]
+    title= @event.title
+    if params[:commit] == "中止"
+      @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}が中止になりました"
+      @event.held=false
+      @event.update(event_params)
+      flash[:success]="#{title}イベントの中止登録をしました"
+    elsif params[:commit] == "実行"
+      @event.update(event_params)
       @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
       @content="開催イベント：#{@event.title}が編集されました"
-    if @event.update(event_params)
-      if @event.sendmailmethod=="3"
-        @user=User.all
-        sendmailsysc
-        flash[:success]="正常に編集され会員全員にメールを送りました。"
-      elsif @event.sendmailmethod=="2"
-        @user=Event.joins(:user).where(id:@event.id)
-        sendmailsys2
-        flash[:success]="正常に編集され参加者にメールを送りました。"
-      end
-      redirect_to("/events/#{@event.id}")
+      flash[:success]="イベントの変更処理をしました"
     else
-      flash[:warning]="登録に失敗しました"
+      flash[:warning]="編集に失敗しました"
       render 'edit'
     end
+    if sendmail=="3"
+      @user=User.all
+      sendmailsys
+      flash[:warning]="会員全員にメールを送りました。"
+    elsif sendmail=="1"
+      @user=Event.joins(:user).where(id:@event.id)
+      sendmailsys2
+      flash[:warning]="参加者にメールを送りました。"
+    end
+    redirect_to("/events/#{@event.id}")
   end
+  
   def attendance
     @event = Event.find(params[:id])
     #event_id=params[:id]

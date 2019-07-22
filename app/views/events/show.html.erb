@@ -4,6 +4,9 @@
     <center><h3><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
 <% end %>
 <p><center>
+  <% if @event.held==false %>
+    このイベントは中止になりました
+  <% end %>
   <% if @url %>
     <%= link_to("前のページに戻る",@url) %>
   <% end %>
@@ -39,16 +42,18 @@
 <center>
   <% nokori=@event.capacity-i %>
   <% now = Time.current %>
-  <% if @event.opendate>now and nokori>0 and @sanka.empty? %> 
+  <% if @event.held==true %>
+    <% if @event.opendate>now and nokori>0 and @sanka.empty? %> 
      <% title="参加" %>
      <% kubun=1 %>
-  <% elsif @event.opendate>now and  @sanka.present? %>
+    <% elsif @event.opendate>now and  @sanka.present? %>
       <% title="取消" %>
       <% kubun=2 %>
+    <% end %>
+    <% if kubun.to_i>=1 %>
+      <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-primary"} %>
+    <% end %> 
   <% end %>
-  <% if kubun.to_i>=1 %>
-    <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-primary"} %>
-  <% end %>    
 </center>
 </div>
 <br>

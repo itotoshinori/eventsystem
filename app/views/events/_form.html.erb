@@ -40,9 +40,10 @@
       </p>
       <%= f.hidden_field :sendmailmethod,value:current_user.id %>
       <%= f.label :通知方法 %><br>
-      <%= f.select :sendmailmethod, [["登録のみ", 1], ["出席者にメールを送る", 2], ["会員全員にメールを送る", 3]] %><br><br>
+      <%= f.select :sendmailmethod, [["出席者にメールを送る", 1],["登録のみ", 2],  ["会員全員にメールを送る", 3]] %><br><br>
       <%= f.hidden_field :user_id,value:current_user.id %>
       <%= f.submit "実行", class: "btn btn-primary" %>
+      <%= f.submit "中止", class: "btn btn-primary" ,data: { confirm: "本当に中止にしますか？詳細に中止の理由を明記ください" } %>
     <% end %>
     <p><center>
      <A HREF="javascript:history.back()">前のページに戻る</A>
