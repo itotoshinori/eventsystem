@@ -83,7 +83,7 @@ class EventsController < ApplicationController
       sendmailsys
       flash[:warning]="会員全員にメールを送りました。"
     elsif sendmail=="1"
-      @user=Event.joins(:user).where(id:@event.id)
+      @user=Participant.joins(:user).where(event_id:@event.id)
       sendmailsys2
       flash[:warning]="参加者にメールを送りました。"
     end
