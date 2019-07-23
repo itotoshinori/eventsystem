@@ -66,3 +66,12 @@ p {
   color: #fff;
   text-decoration: none;
 }
+.kakomi-maru2 {
+  margin: 1em auto;
+  padding: 1em;
+  width: 90%;
+ border: 5px dotted #f09199; /*太さ・線種・色*/
+ background-color: #fff; /* 背景色 */
+ border-radius: 1px; /*角の丸み*/
+ font-size: 16pt;
+}
