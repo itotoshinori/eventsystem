@@ -6,6 +6,7 @@
 <center>
 <%= render partial: "index" %>
 </center>
-<br><br>
+<%= will_paginate @event, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 </div>
+
 

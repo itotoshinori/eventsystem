@@ -35,10 +35,10 @@ class EventsController < ApplicationController
   end
 
   def index
-    @event=Event.where('opendate >= ?',nowday).order(opendate: "ASC")
+    @event=Event.where('opendate >= ?',nowday).order(opendate: "ASC").paginate(page: params[:page], per_page: 20)
   end
   def indexpast
-    @event=Event.where('opendate < ?',nowday).order(opendate: "desc")
+    @event=Event.where('opendate < ?',nowday).order(opendate: "desc").paginate(page: params[:page], per_page: 20)
   end
 
   def show
