@@ -6,8 +6,11 @@
     <% session[:geturl2]=request.referer %>
 <% end %>
 <p><center>
-  <% if @event.held==true and @event.opendate>now %>
-    <div class="mybox lead"><%="残り#{@event.capacity-@event.participants.count}名参加できます" %></div><br>
+  <% possible=@event.capacity-@event.participants.count %>
+  <% if possible>0 and @event.held==true and @event.opendate>now %>
+    <div class="mybox lead"><%="残り#{possible}名参加できます" %></div>
+  <% elsif possible==0 and @event.held==true and @event.opendate>now %>
+    <div class="mybox lead">満席です</div>
   <% end %>
   <% if @event.held==false %>
     <div class="kakomi-maru2">このイベントは中止になりました</div><br>
