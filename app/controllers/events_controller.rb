@@ -96,11 +96,15 @@ class EventsController < ApplicationController
   
   def attendance
     @event = Event.find(params[:id])
+  
     #event_id=params[:id]
     @kubun=params[:kubun]
     url=params[:url]
     user_id=current_user.id
-    if @kubun=="1"
+    possiblecount=@event.capacity-@event.participants.count
+    if possiblecount==0 and @kubun=="1"
+      flash[:warning]="申し訳けございません。すでに満席で参加登録できません"
+    elsif @kubun=="1"
       sanka=Participant.new(user_id:user_id,event_id:@event.id)
       sanka.save
       @link="https://young-gorge-92470.herokuapp.com/events/#{sanka.event_id}"
@@ -109,7 +113,7 @@ class EventsController < ApplicationController
       sendmailsys
       flash[:success]="正常に参加登録されました"
     elsif @kubun=="2"
-      if (@event.capacity-@event.participants.count)==0
+      if possiblecount==0
         status="full"
       end
       sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: current_user.id)
