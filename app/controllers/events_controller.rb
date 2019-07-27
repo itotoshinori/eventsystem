@@ -63,6 +63,8 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     settingvalue
+    session[:geturl]=session[:geturl2]
+    session.delete(:geturl2)
     sendmail=event_params[:sendmailmethod]
     title= @event.title
     if params[:commit] == "中止"
@@ -107,6 +109,9 @@ class EventsController < ApplicationController
       sendmailsys
       flash[:success]="正常に参加登録されました"
     elsif @kubun=="2"
+      if (@event.capacity-@event.participants.count)==0
+        status="full"
+      end
       sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: current_user.id)
       @link="https://young-gorge-92470.herokuapp.com/events/#{sanka.event_id}"
       sanka.destroy
@@ -114,6 +119,11 @@ class EventsController < ApplicationController
       @user=User.where(id:@event.user_id)
       sendmailsys
       flash[:success]="キャンセルされました。またのご利用をお願いします。"
+      if status=="full"
+        @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
+        @user=User.all
+        sendmailsys
+      end
     else
       flash[:warning]="登録失敗しました"
     end

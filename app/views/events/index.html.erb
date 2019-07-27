@@ -2,8 +2,9 @@
 <title>これからのイベント一覧</title>
 <center><p class="h2">これからのイベント一覧</p></center>
 <nav>
-<%= link_to "過去のイベント","/events/indexpast",class:"btn btn-info" %>
-<%= link_to "中止になったイベント","/events/indexcancel",class:"btn btn-info" %>
+<%= link_to "これから","/events/index",class:"btn btn-info" %>
+<%= link_to "過去","/events/indexpast",class:"btn btn-info" %>
+<%= link_to "中止","/events/indexcancel",class:"btn btn-info" %>
 </nav>
 <center>
 <%= render partial: "index" %>

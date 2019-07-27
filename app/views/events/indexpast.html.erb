@@ -1,8 +1,9 @@
 <% require "date" %>
 <title>過去のイベント一覧</title>
 <center><p class="h2">過去のイベント一覧</p></center>
-<%= link_to "これからののイベント","/events/index",class:"btn btn-info" %>
-<%= link_to "中止になったイベント","/events/indexcancel",class:"btn btn-info" %>
+<%= link_to "これから","/events/index",class:"btn btn-info" %>
+<%= link_to "過去","/events/indexpast",class:"btn btn-info" %>
+<%= link_to "中止","/events/indexcancel",class:"btn btn-info" %>
 <center>
 <%= render partial: "index" %>
 </center>
