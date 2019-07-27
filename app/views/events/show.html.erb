@@ -21,10 +21,10 @@
     <th width="150">項目</th><th width="300">内容</th>
   </tr>
   <tr><td>タイトル</td><td class="lead"><%= @event.title %></td></tr>
-  <tr><td>主催者</td><td><%= usernamereturn(@event.user_id) %></td></tr>
+  <tr><td>主催者</td><td class="lead"><%= usernamereturn(@event.user_id) %></td></tr>
   <tr><td>開始日時</td><td class="lead"><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
   <tr><td>開催場所</td>
-  <td>
+  <td class="lead">
   <% if @event.placelink.present? %>
     <%= link_to(@event.place, @event.placelink) %>
   <% else %>
@@ -32,10 +32,10 @@
   <% end %>
   </td></tr>
   <tr><td>詳細</td></td><td><%=raw Rinku.auto_link(simple_format(@event.note)) %></td></tr>
-  <tr><td>参加費</td></td><td><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
-  <tr><td>定員</td></td><td><%=@event.capacity %>名</td></tr>
+  <tr><td>参加費</td></td><td class="lead"><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
+  <tr><td>定員</td></td><td class="lead"><%=@event.capacity %>名</td></tr>
   <tr><td>参加者</td></td>
-  <td>
+  <td class="lead">
     <% i=0 %>
     <% @sankasha.each do |s| %>
       <%= "#{usernamereturn(s.user_id)}さん　" %><br>

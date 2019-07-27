@@ -1,13 +1,17 @@
-<% url = request.url %>
-<table border="1" class="table-bordered table-condensed table table-striped">
+<% if @event.count>0 %>
+  <% url = request.url %>
+  <table border="1" class="table-bordered table-condensed table table-striped">
   <tr>
     <th>イベント名</th><th>開催日</th><th>開始時間</th><th>場所</th><th width="100">定員</th><th width="100">参加人数</th>
   </tr>
-<% @event.each do |f| %>
-  <% suu=f.participants.count %>
-  <tr>
+  <% @event.each do |f| %>
+    <% suu=f.participants.count %>
+    <tr>
     <td><%= link_to(mojiseigen(f.title,15), event_path(f.id)) %></td>
     <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=mojiseigen(f.place,10) %></td><td><%=f.capacity %></td><td><%=suu %></td>
-  </tr>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <div class="kakomi-maru2">対照のイベントはありまません</div>
 <% end %>
-</table>
