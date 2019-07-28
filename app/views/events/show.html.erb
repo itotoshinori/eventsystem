@@ -16,11 +16,11 @@
   <div class="kakomi-maru2">このイベントは中止になりました</div><br>
 <% end %>
 <% if @url %>
-  <%= link_to("前のページに戻る",@url) %>
+  <%= link_to("前のページに戻る",@url,class: "btn btn-primary") %>
 <% end %>
 </center></p>
 <table border="1" class="table-bordered table-condensed table table-striped">
-  <tr><td class="lead">タイトル</td><td class="lead"><%= @event.title %></td></tr>
+  <tr><td  width="100" class="lead">タイトル</td><td class="lead"><%= @event.title %></td></tr>
   <tr><td class="lead">主催者</td><td class="lead"><%= usernamereturn(@event.user_id) %></td></tr>
   <tr><td class="lead">開始日時</td><td class="lead"><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
   <tr><td class="lead">開催場所</td>
@@ -46,7 +46,6 @@
 </table>
 <center>
   <% nokori=@event.capacity-i %>
-  
   <% if @event.held==true %>
     <% if @event.opendate>now and nokori>0 and @sanka.empty? %> 
      <% title="参加" %>
@@ -60,5 +59,5 @@
     <% end %> 
   <% end %>
 </center>
+<br><br><br><br>
 </div>
-<br>
