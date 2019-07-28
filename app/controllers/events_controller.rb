@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   require 'date'
   require 'active_support/core_ext/date'
   include EventsHelper
+  
   def new
     now = Time.current
     sdate=now.since(7.days)
@@ -20,10 +21,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     settingvalue
-    
     if @event.save
       @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
-      @content="開催イベント：#{@event.title}"
+      @content="新規開催イベント：#{@event.title}"
       @user=User.all
       sendmailsys
       flash[:success]="正常に登録され、会員にメールを送りました。"
@@ -37,11 +37,13 @@ class EventsController < ApplicationController
   def index
     @event=Event.where('opendate >= ?',nowday).where(held:true).order(opendate: "ASC").paginate(page: params[:page], per_page: 20)
   end
+  
   def indexpast
     @event=Event.where('opendate < ?',nowday).where(held:true).order(opendate: "desc").paginate(page: params[:page], per_page: 20)
   end
+  
   def indexcancel
-    @event=Event.where(held:false).order(opendate: "ASC").paginate(page: params[:page], per_page: 20)
+    @event=Event.where(held:false).order(opendate: "desc").paginate(page: params[:page], per_page: 20)
   end
   def show
     if session[:geturl].present?
@@ -55,11 +57,12 @@ class EventsController < ApplicationController
     @sankasha=Participant.where(event_id:@event.id)
     @sanka=Participant.where(event_id:@event.id,user_id:current_user.id)
   end
-
+  
   def edit
     @event = Event.find(params[:id])
     settingvalue
   end
+  
   def update
     @event = Event.find(params[:id])
     settingvalue
@@ -96,8 +99,6 @@ class EventsController < ApplicationController
   
   def attendance
     @event = Event.find(params[:id])
-  
-    #event_id=params[:id]
     @kubun=params[:kubun]
     url=params[:url]
     user_id=current_user.id
@@ -135,7 +136,6 @@ class EventsController < ApplicationController
     redirect_to("/events/#{@event.id}")
     #render "/events/#{event_id}"
   end
-  
   
   private
   def event_params
