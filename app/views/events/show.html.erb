@@ -20,9 +20,6 @@
 <% end %>
 </center></p>
 <table border="1" class="table-bordered table-condensed table table-striped">
-  <tr>
-    <th width="150">項目</th><th width="300">内容</th>
-  </tr>
   <tr><td class="lead">タイトル</td><td class="lead"><%= @event.title %></td></tr>
   <tr><td class="lead">主催者</td><td class="lead"><%= usernamereturn(@event.user_id) %></td></tr>
   <tr><td class="lead">開始日時</td><td class="lead"><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
