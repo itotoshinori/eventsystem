@@ -1,5 +1,5 @@
 class MailsysMailer < ApplicationMailer
-  default from: 'no-replay@eventmail.com'
+  default from: 'tito40358@gmail.com'
 
   def sendmail(str,link,mailad)
     @str = str
