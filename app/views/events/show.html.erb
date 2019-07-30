@@ -23,22 +23,22 @@
 
 </center>
 <table border="1" class="table-bordered table-condensed table table-striped">
-  <tr><td  width="100" class="lead">タイトル</td><td class="lead"><%= @event.title %></td></tr>
-  <tr><td class="lead">主催者</td><td class="lead"><%= usernamereturn(@event.user_id) %></td></tr>
-  <tr><td class="lead">開始日時</td><td class="lead"><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
-  <tr><td class="lead">開催場所</td>
-  <td class="lead">
+  <tr><td  width="80" >タイトル</td><td ><%= @event.title %></td></tr>
+  <tr><td >主催者</td><td ><%= usernamereturn(@event.user_id) %></td></tr>
+  <tr><td >開始日時</td><td ><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
+  <tr><td >開催場所</td>
+  <td >
   <% if @event.placelink.present? %>
     <%= link_to(@event.place, @event.placelink) %>
   <% else %>
     <%=@event.place %>
   <% end %>
   </td></tr>
-  <tr><td class="lead">詳細</td></td><td><%=raw Rinku.auto_link(simple_format(@event.note)) %></td></tr>
-  <tr><td class="lead">参加費</td></td><td class="lead"><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
-  <tr><td class="lead">定員</td></td><td class="lead"><%=@event.capacity %>名</td></tr>
-  <tr><td class="lead">参加者</td></td>
-  <td class="lead">
+  <tr><td >詳細</td></td><td><%=raw Rinku.auto_link(simple_format(@event.note)) %></td></tr>
+  <tr><td >参加費</td></td><td ><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
+  <tr><td >定員</td></td><td ><%=@event.capacity %>名</td></tr>
+  <tr><td >参加者</td></td>
+  <td >
     <% i=0 %>
     <% @sankasha.each do |s| %>
       <%= "#{usernamereturn(s.user_id)}さん　" %><br>
@@ -64,7 +64,7 @@
   <tr>
   
   <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
-    <td rowspan=<%=@commentcontent.count+1 %> class="lead">コメント</td>
+    <td rowspan=<%=@commentcontent.count+1 %> >コメント</td>
     <%= hidden_field_tag :event_id, @event.id %>
     <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "55x2" %><br>
     <%= submit_tag "送信", class: "btn btn-primary" %>
