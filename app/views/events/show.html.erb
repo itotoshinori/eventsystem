@@ -2,25 +2,19 @@
 <% now = Time.current %>
 <% session[:geturl2]=@url %>
 <h1>イベントの詳細</h1>
+<center>
 <% if current_user.id==@event.user_id %>
     <center><h3><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
 <% end %>
-<p><center>
+<p>
 <% possible=@event.capacity-@event.participants.count %>
-<% if possible>0 and @event.held==true and @event.opendate>now %>
-  <div class="mybox lead"><%="残り#{possible}名参加できます" %></div>
-<% elsif possible==0 and @event.held==true and @event.opendate>now %>
-  <div class="mybox lead">満席です</div>
-<% end %>
 <% if @event.held==false %>
   <div class="kakomi-maru2">このイベントは中止になりました</div><br>
 <% end %></p>
-
 <% if @url %>
   <%= link_to("前のページに戻る",@url,class: "btn btn-primary") %>
   <br>
 <% end %>
-
 </center>
 <table border="1" class="table-bordered table-condensed table table-striped">
   <tr><td  width="80" >タイトル</td><td ><%= @event.title %></td></tr>
@@ -44,7 +38,12 @@
       <%= "#{usernamereturn(s.user_id)}さん　" %><br>
       <% i=i+1 %>
     <% end %>
-    <%= i %>名
+    <%= i %>名　　
+    <% if possible>0 and @event.held==true and @event.opendate>now %>
+      <%="残り#{possible}名参加できます" %>
+    <% elsif possible==0 and @event.held==true and @event.opendate>now %>
+      満席です
+    <% end %>
   </td></tr>
   <% nokori=@event.capacity-i %>
   <% if @event.held==true %>
