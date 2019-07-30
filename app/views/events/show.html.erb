@@ -63,7 +63,7 @@
   <% end %></center>
   <tr>
   <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
-    <td rowspan="3" class="lead">コメント</td>
+    <td rowspan="0" class="lead">コメント</td>
     <%= hidden_field_tag :event_id, @event.id %>
     <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "55x2" %><br>
     <%= submit_tag "送信", class: "btn btn-primary" %>
