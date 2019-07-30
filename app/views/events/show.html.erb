@@ -73,7 +73,7 @@
     <% @commentcontent.each do |f| %>
       <tr><td> 
       <%= usernamereturn(f.user_id) %>さん　<%= dateweekday(f.created_at)%>　<%=timehyouji2(f.created_at) %><br>
-      <%= simple_format(f.content) %>
+      <%= simple_format(h(f.content)) %>
       </td></tr>
     <% end %>
   <% end %>

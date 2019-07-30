@@ -110,12 +110,10 @@ class EventsController < ApplicationController
     elsif @kubun=="1"
       sanka=Participant.new(user_id:user_id,event_id:@event.id)
       sanka.save
-      if current_user.id!=@event.user_id
-        @link="https://young-gorge-92470.herokuapp.com/events/#{sanka.event_id}"
-        @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
-        @user=User.where(id:@event.user_id)
-        sendmailsys
-      end
+      @link="https://young-gorge-92470.herokuapp.com/events/#{sanka.event_id}"
+      @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
+      @user=User.where(id:@event.user_id)
+      sendmailsys
       flash[:success]="正常に参加登録されました"
     elsif @kubun=="2"
       if possiblecount==0
@@ -123,12 +121,10 @@ class EventsController < ApplicationController
       end
       sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: current_user.id)
       sanka.destroy
-      if current_user.id!=@event.user_id
-        @link="https://young-gorge-92470.herokuapp.com/events/#{sanka.event_id}"
-        @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
-        @user=User.where(id:@event.user_id)
-        sendmailsys
-      end
+      @link="https://young-gorge-92470.herokuapp.com/events/#{sanka.event_id}"
+      @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
+      @user=User.where(id:@event.user_id)
+      sendmailsys
       flash[:success]="キャンセルされました。またのご利用をお願いします。"
       if status=="full"
         @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"

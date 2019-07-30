@@ -48,5 +48,10 @@ module EventsHelper
             kekka=moji[0,9]+".."
         end
         kekka
-    end    
+    end
+    def pchange(str)
+        str = str.gsub!("<p>","")
+        str=str.gsub!("</p>","")
+        str
+    end
 end
