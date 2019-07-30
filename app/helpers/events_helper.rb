@@ -30,6 +30,12 @@ module EventsHelper
         end
         kekka
     end
+    def timehyouji2(d)
+        if d.present?
+            kekka=niketa(d.hour.to_s)+"時"+niketa(d.min.to_s)+"分"        
+        end
+        kekka
+    end
     def usernamereturn(i)
         if i.present?
             user=User.find(i)

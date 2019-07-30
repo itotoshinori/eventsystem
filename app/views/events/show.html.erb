@@ -1,9 +1,9 @@
 <div class="col-md-6 col-md-offset-3">
 <% now = Time.current %>
+<% session[:geturl2]=@url %>
 <h1>イベントの詳細</h1>
 <% if current_user.id==@event.user_id %>
     <center><h3><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
-    <% session[:geturl2]=request.referer %>
 <% end %>
 <p><center>
 <% possible=@event.capacity-@event.participants.count %>
@@ -14,11 +14,14 @@
 <% end %>
 <% if @event.held==false %>
   <div class="kakomi-maru2">このイベントは中止になりました</div><br>
-<% end %>
+<% end %></p>
+
 <% if @url %>
   <%= link_to("前のページに戻る",@url,class: "btn btn-primary") %>
+  <br>
 <% end %>
-</center></p>
+
+</center>
 <table border="1" class="table-bordered table-condensed table table-striped">
   <tr><td  width="100" class="lead">タイトル</td><td class="lead"><%= @event.title %></td></tr>
   <tr><td class="lead">主催者</td><td class="lead"><%= usernamereturn(@event.user_id) %></td></tr>
@@ -43,8 +46,6 @@
     <% end %>
     <%= i %>名
   </td></tr>
-</table>
-<center>
   <% nokori=@event.capacity-i %>
   <% if @event.held==true %>
     <% if @event.opendate>now and nokori>0 and @sanka.empty? %> 
@@ -55,9 +56,29 @@
       <% kubun=2 %>
     <% end %>
     <% if kubun.to_i>=1 %>
+      <tr><td colspan="2"><center>
       <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-primary"} %>
-    <% end %> 
+      </td></tr>
+    <% end %>
+  <% end %></center>
+  <tr>
+  <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
+    <td rowspan="3" class="lead">コメント</td>
+    <%= hidden_field_tag :event_id, @event.id %>
+    <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "55x2" %><br>
+    <%= submit_tag "送信", class: "btn btn-primary" %>
   <% end %>
-</center>
+  <% if @commentcontent.present? %>
+    <% @commentcontent.each do |f| %>
+      <tr><td> 
+      <%= usernamereturn(f.user_id) %>さん　<%= dateweekday(f.created_at)%>　<%=timehyouji2(f.created_at) %><br>
+      <%= simple_format(f.content) %>
+      </td></tr>
+    <% end %>
+  <% end %>
+  </td>
+  </tr>
+  </table>
+
 <br><br><br><br>
 </div>

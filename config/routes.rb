@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   post '/mail', to: 'events#mail', as: :mail;
- 
+  
+  post 'events/commentcreate'
+  
   get  'events/indexcancel'
   
   post 'events/indexpast'
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   get 'events/edit'
   
   post '/events/:id', to: 'events#show'
+  
   resources :events
   
   root :to => 'infos#index'

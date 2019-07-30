@@ -56,6 +56,8 @@ class EventsController < ApplicationController
     @sankasha=Participant.all
     @sankasha=Participant.where(event_id:@event.id)
     @sanka=Participant.where(event_id:@event.id,user_id:current_user.id)
+    @comment=Comment.new
+    @commentcontent=Comment.where(event_id:@event.id)
   end
   
   def edit
@@ -135,6 +137,29 @@ class EventsController < ApplicationController
     session[:geturl]=url
     redirect_to("/events/#{@event.id}")
     #render "/events/#{event_id}"
+  end
+  
+  def commentcreate
+    session[:geturl]=session[:geturl2]
+    session.delete(:geturl2)
+    comment=params[:comment]
+    event_id=params[:event_id]
+    if comment.present?
+      user_id=current_user.id
+      commentn=Comment.new(content:comment,user_id:user_id,event_id:event_id)
+      commentn.save
+      event=Event.find(event_id)
+      if current_user.id!=event.user_id
+        @link="https://young-gorge-92470.herokuapp.com/events/#{event_id}"
+        @content="開催イベント：#{event.title}に投稿がありました"
+        @user=User.where(id:event.user_id)
+        sendmailsys
+      end
+      flash[:success]="コメントが投稿されました"
+    else
+      flash[:warning]="コメント投稿に失敗しました。メッセージが入力されていません。"
+    end
+    redirect_to("/events/#{event_id}")
   end
   
   private
