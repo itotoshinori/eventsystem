@@ -50,8 +50,8 @@ module EventsHelper
         kekka
     end
     def pchange(str)
-        str = str.gsub!("<p>","")
-        str=str.gsub!("</p>","")
+        str = str.gsub!(/<p>/, '')
+        str=str.gsub!("/</p>/","")
         str
     end
 end

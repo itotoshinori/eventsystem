@@ -1,10 +1,10 @@
 <div class="col-md-6 col-md-offset-3">
 <% now = Time.current %>
 <% session[:geturl2]=@url %>
-<h1>イベントの詳細</h1>
 <center>
+<h3 class="lead">イベントの詳細</h3>
 <% if current_user.id==@event.user_id %>
-    <center><h3><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></h3></center>
+    <center><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></center>
 <% end %>
 <p>
 <% possible=@event.capacity-@event.participants.count %>
@@ -12,7 +12,7 @@
   <div class="kakomi-maru2">このイベントは中止になりました</div><br>
 <% end %></p>
 <% if @url %>
-  <%= link_to("前のページに戻る",@url,class: "btn btn-primary") %>
+  <%= link_to("前のページに戻る",@url) %>
   <br>
 <% end %>
 </center>
@@ -72,7 +72,7 @@
     <% @commentcontent.each do |f| %>
       <tr><td> 
       <%= usernamereturn(f.user_id) %>さん　<%= dateweekday(f.created_at)%>　<%=timehyouji2(f.created_at) %><br>
-      <%= simple_format(h(f.content)) %>
+      <%= simple_format h f.content %>
       </td></tr>
     <% end %>
   <% end %>
