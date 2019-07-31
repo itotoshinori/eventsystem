@@ -10,7 +10,7 @@
       <% end %>
       <%= f.text_field :title, placeholder: 'enter イベント名',class: 'form-control' ,value:@event.title %>
       <p>
-      <%= f.label :イベントの詳細 %>
+      <%= f.label :イベントの詳細 %><br>
       <% if @event.errors.messages[:note].any? %>
          <b><font color="red"><%= @event.errors.messages[:note][0] %></font></b>
       <% end %>
