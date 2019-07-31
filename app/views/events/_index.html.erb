@@ -2,13 +2,13 @@
   <% url = request.url %>
   <table border="1" class="table-bordered table-condensed table table-striped">
   <tr>
-    <th>イベント名</th><th>開催日</th><th>開始時間</th><th>場所</th><th width="100">定員</th><th width="100">参加人数</th><th width="100"><center>参加登録</center></th>
+    <th>イベント名</th><th>開催日</th><th>開始時間</th><th>場所</th><th width="100" class="centerp">定員</th><th width="100" class="centerp">参加人数</th><th width="100" class="centerp">参加登録</th>
   </tr>
   <% @event.each do |f| %>
     <% suu=f.participants.count %>
     <tr>
     <td><%= link_to(mojiseigen(f.title,15), event_path(f.id)) %></td>
-    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=mojiseigen(f.place,10) %></td><td><%=f.capacity %></td><td><%=suu %></td>
+    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=mojiseigen(f.place,10) %></td><td class="centerp"><%=f.capacity %></td><td class="centerp"><%=suu %></td>
     <td>
     <%if Participant.find_by(user_id:current_user.id,event_id:f.id).present? %>
     <center>済</center>

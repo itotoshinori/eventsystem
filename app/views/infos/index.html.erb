@@ -4,6 +4,7 @@
 <p><%= current_user.name+"でログイン中です"%></p>
 <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
 <p><%=link_to "編集", "users/edit/" %></p>
+<p><%=link_to "イベント一覧表", "events/index" %></p>
 <% else %>
   <p><a href="/users/sign_in">ログインはこちらから</a></p>
   <p><a href="/users/sign_up">新規登録はこちらから</a></p>
