@@ -67,6 +67,9 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.8.1)
+      devise (>= 4.6)
+    devise-i18n-views (0.3.7)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.11.1)
@@ -194,6 +197,8 @@ DEPENDENCIES
   byebug (= 9.0.6)
   coffee-rails (= 4.2.2)
   devise
+  devise-i18n
+  devise-i18n-views
   jbuilder (= 2.6.4)
   jquery-rails (= 4.3.1)
   listen (= 3.1.5)
