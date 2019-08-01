@@ -72,7 +72,7 @@ class EventsController < ApplicationController
     session.delete(:geturl2)
     sendmail=event_params[:sendmailmethod]
     title= @event.title
-    @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+    @link="https://young-gorge-92470.herokuapp.com/events/#{@event.id}"
     if params[:commit] == "中止"
       @content="開催イベント：#{@event.title}が中止になりました"
       @event.held=false
