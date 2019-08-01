@@ -12,6 +12,9 @@
 <% if @event.held==false %>
   <div class="kakomi-maru2">このイベントは中止になりました</div><br>
 <% end %></p>
+<% if @event.recruiting==false %>
+  <p>このイベントの募集は終了しました</p>
+<% end %>
 <% if @url %>
   <%= link_to("前のページに戻る",@url) %>
   <br>
@@ -48,7 +51,7 @@
   </td></tr>
   <% nokori=@event.capacity-i %>
   <% if @event.held==true %>
-    <% if @event.opendate>now and nokori>0 and @sanka.empty? %> 
+    <% if @event.opendate>now and nokori>0 and @sanka.empty?  and @event.recruiting==true %> 
      <% title="参加" %>
      <% kubun=1 %>
     <% elsif @event.opendate>now and  @sanka.present? %>
@@ -80,6 +83,6 @@
   </td>
   </tr>
   </table>
-
+ 
 <br><br><br><br>
 </div>

@@ -72,15 +72,27 @@ class EventsController < ApplicationController
     session.delete(:geturl2)
     sendmail=event_params[:sendmailmethod]
     title= @event.title
+    @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
     if params[:commit] == "中止"
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
       @content="開催イベント：#{@event.title}が中止になりました"
       @event.held=false
       @event.update(event_params)
       flash[:success]="#{title}イベントの中止登録をしました"
-    elsif params[:commit] == "実行"
+    elsif params[:commit] == "編集＋募集停止"
+      @event.recruiting=false
       @event.update(event_params)
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+      #@link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}が編集され募集が終了しました。"
+      flash[:success]="イベントの変更処理及び募集停止しました"
+    elsif params[:commit] == "編集＋募集再開"
+      @event.recruiting=true
+      @event.update(event_params)
+      #@link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+      @content="開催イベント：#{@event.title}が編集され募集が再開されました"
+      flash[:success]="イベントの変更処理及び募集再開しました"
+    elsif params[:commit] == "編集"
+      @event.update(event_params)
+      #@link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
       @content="開催イベント：#{@event.title}が編集されました"
       flash[:success]="イベントの変更処理をしました"
     else
