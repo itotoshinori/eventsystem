@@ -173,6 +173,20 @@ class EventsController < ApplicationController
     end
     redirect_to("/events/#{event_id}")
   end
+  def moneycollection
+    event_id=params[:event_id]
+    url=params[:url]
+    participant=Participant.find(params[:id])
+    @kubun=params[:kubun]
+    if @kubun=="1"
+      participant.moneycollection=true
+    else
+      participant.moneycollection=false
+    end
+    participant.save
+    session[:geturl]=url
+    redirect_to("/events/#{event_id}") 
+  end
   
   private
   def event_params

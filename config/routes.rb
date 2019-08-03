@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   post '/mail', to: 'events#mail', as: :mail;
   
+  post  'events/moneycollection'
+  
   post 'events/commentcreate'
   
   get  'events/indexcancel'
