@@ -180,8 +180,12 @@ class EventsController < ApplicationController
     @kubun=params[:kubun]
     if @kubun=="1"
       participant.moneycollection=true
-    else
+    elsif @kubun=="2"
       participant.moneycollection=false
+    elsif @kubun=="3"
+      participant.attendance=true
+    else
+      participant.attendance=false
     end
     participant.save
     session[:geturl]=url

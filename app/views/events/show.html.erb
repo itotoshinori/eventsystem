@@ -41,11 +41,18 @@
     <% @sankasha.each do |s| %>
       <%= "#{usernamereturn(s.user_id)}さん　" %>
       <%= @event_id %>
-      <% if current_user.id==@event.user_id %>
+      <% if current_user.id==@event.user_id and @event.money>0 %>
         <% if s.moneycollection==false %>
           <%= link_to "集金", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"1"}, {method: :post} %>
         <% else %>
           <%= link_to "集金済", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"2"}, {method: :post} %>
+        <% end %>
+      <% end %>
+      <% if current_user.id==@event.user_id %>
+        <% if s.attendance==false %>
+          <%= link_to "出席", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"3"}, {method: :post} %>
+        <% else %>
+          <%= link_to "出席済", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"4"}, {method: :post} %>
         <% end %>
       <% end %>
       <br>
