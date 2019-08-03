@@ -218,7 +218,7 @@ class EventsController < ApplicationController
   end
   def nowday
     now = Time.current
-    today=Date.new(now.year, now.month, now.day)
+    today=Date.new(now.year, now.month, now.day)-1
     today
   end
   def sendmailsys
