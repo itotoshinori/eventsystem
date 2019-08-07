@@ -3,7 +3,7 @@
   <% url = request.url %>
   <table border="2" class="table-bordered table table-striped">
   <tr>
-    <th>イベント名</th><th>開催日</th><th>開始時間</th><th>場所</th><th width="100" class="centerp">定員</th><th width="100" class="centerp">参加人数</th><th width="100" class="centerp">参加登録</th>
+    <th class="centerp">イベント名</th><th class="centerp">開催日</th><th class="centerp">開始時間</th><th class="centerp">場所</th><th width="100" class="centerp">定員</th><th width="100" class="centerp">参加人数</th><th width="100" class="centerp">参加登録</th>
   </tr>
   <% @event.each do |f| %>
     <% suu=f.participants.count %>
