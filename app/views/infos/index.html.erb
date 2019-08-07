@@ -1,5 +1,5 @@
-<div class="center jumbotron">
 <h1>イベント管理システム</h1>
+<div class="center jumbotron">
 <% if user_signed_in? %>
 <p><%= current_user.name+"でログイン中です"%></p>
 <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
