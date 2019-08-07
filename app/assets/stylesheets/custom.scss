@@ -75,6 +75,15 @@ p {
  border-radius: 1px; /*角の丸み*/
  font-size: 16pt;
 }
+.kakomi-maru3 {
+  margin: 1em auto;
+  padding: 1em;
+  width: 90%;
+ border: 5px dotted #b0c4de; /*太さ・線種・色*/
+ background-color: #fff; /* 背景色 */
+ border-radius: 1px; /*角の丸み*/
+ font-size: 12pt;
+}
 .mybox{
  background: none;
  border: 1px solid #f3cbd0;	/* 線の太さ・種類・色 */
@@ -93,7 +102,10 @@ p {
  height: 100%;
  z-index: -1;
 }
+
 .centerp { text-align: center; }
+
+.leftp { text-align: left; }
 
 .jumbotron{
 background: #BCE1DF;

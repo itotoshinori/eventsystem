@@ -1,4 +1,5 @@
 <div class="center jumbotron">
+<div class="kakomi-maru3">  
 <% if @event.count>0 %>
   <% url = request.url %>
   <table border="2" class="table-bordered table table-striped">
@@ -8,16 +9,20 @@
   <% @event.each do |f| %>
     <% suu=f.participants.count %>
     <tr>
-    <td><%= link_to(mojiseigen(f.title,15), event_path(f.id)) %></td>
-    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-<%=timehyouji(f.finishtime) %></td><td><%=mojiseigen(f.place,10) %></td><td class="centerp"><%=f.capacity %></td><td class="centerp"><%=suu %></td>
+    <td class="leftp"><%= link_to(mojiseigen(f.title,8), event_path(f.id)) %></td>
+    <td><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-</td>
+    <td class="leftp"><%=mojiseigen(f.place,8) %></td>
+    <td class="centerp"><%=f.capacity %></td>
+    <td class="centerp"><%=suu %></td>
     <td>
     <%if Participant.find_by(user_id:current_user.id,event_id:f.id).present? %>
-    <center>済</center>
+      <center>済</center>
     <% end %>
     </td>
     </tr>
   <% end %>
   </table>
+  </div>
 <% else %>
   <div class="kakomi-maru2">対象のイベントはありません</div>
 <% end %>
