@@ -1,29 +1,29 @@
 <div class="center jumbotron">
-<div class="kakomi-maru3">  
-<% if @event.count>0 %>
-  <% url = request.url %>
-  <table border="2" class="table-bordered table table-striped">
-  <tr>
-    <th class="centerp">イベント名</th><th class="centerp">開催日</th><th class="centerp">開始</th><th class="centerp">場所</th><th width="100" class="centerp">定員</th><th width="100" class="centerp">参加人数</th><th width="100" class="centerp">参加登録</th>
-  </tr>
-  <% @event.each do |f| %>
-    <% suu=f.participants.count %>
+  <div class="kakomi-maru3">  
+    <% if @event.count>0 %>
+    <% url = request.url %>
+    <table border="2" class="table-bordered table table-striped">
     <tr>
-    <td width="180" class="leftp"><%= link_to(mojiseigen(f.title,8), event_path(f.id)) %></td>
-    <td width="180"><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-</td>
-    <td width="180" class="leftp"><%=mojiseigen(f.place,8) %></td>
-    <td class="centerp"><%=f.capacity %></td>
-    <td class="centerp"><%=suu %></td>
-    <td>
-    <%if Participant.find_by(user_id:current_user.id,event_id:f.id).present? %>
-      <center>済</center>
-    <% end %>
-    </td>
+      <th class="centerp">イベント名</th><th class="centerp">開催日</th><th class="centerp">開始</th><th class="centerp">場所</th><th width="100" class="centerp">定員</th><th width="100" class="centerp">参加人数</th><th width="100" class="centerp">参加登録</th>
     </tr>
-  <% end %>
-  </table>
+    <% @event.each do |f| %>
+      <% suu=f.participants.count %>
+      <tr>
+      <td width="180" class="leftp"><%= link_to(mojiseigen(f.title,8), event_path(f.id)) %></td>
+      <td width="180"><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)</td><td><%=timehyouji(f.starttime) %>-</td>
+      <td width="180" class="leftp"><%=mojiseigen(f.place,8) %></td>
+      <td class="centerp"><%=f.capacity %></td>
+      <td class="centerp"><%=suu %></td>
+      <td>
+      <%if Participant.find_by(user_id:current_user.id,event_id:f.id).present? %>
+        <center>済</center>
+      <% end %>
+      </td>
+      </tr>
+    <% end %>
+    </table>
   </div>
-<% else %>
-  <div class="kakomi-maru2">対象のイベントはありません</div>
-<% end %>
+    <% else %>
+      <div class="kakomi-maru2">対象のイベントはありません</div>
+    <% end %>
 </div>
