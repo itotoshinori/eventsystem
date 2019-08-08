@@ -23,7 +23,9 @@
 </center>
 
 <table border="1" class="table-bordered table-condensed table table-striped">
-  <tr><td  width="80">タイトル</td><td><%= @event.title %></td></tr>
+  <col width="80" align="left" bgcolor="#f0f8ff">
+  <col width="200" align="left" bgcolor="#f0f8ff">
+  <tr><td>タイトル</td><td><%= @event.title %></td></tr>
   <tr><td>主催者</td><td ><%= usernamereturn(@event.user_id) %></td></tr>
   <tr><td>開始日時</td><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
   <tr><td>開催場所</td>
