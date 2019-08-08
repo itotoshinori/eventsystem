@@ -2,11 +2,11 @@
 <div class="center jumbotron">
 <% if user_signed_in? %>
   <p><%= current_user.name+"さんでログイン中です"%></p>
-  <p><%= link_to "イベント一覧表", "events/index",class: "btn btn-default btn-lg"  %></p>
-  <p><%= link_to "　　編　　集　","users/edit/",class: "btn btn-default btn-lg" %></p>
-  <p><%= link_to "　ログアウト　", destroy_user_session_path, method: :delete,class: "btn btn-default btn-lg" %></p>
+  <p><%= link_to "イベント一覧表", "events/index",class: "btn-flat-stripe"  %></p>
+  <p><%= link_to "編集","users/edit/",class: "btn-flat-stripe" %></p>
+  <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-flat-stripe" %></p>
 <% else %>
-  <P><%=link_to "ログインはこちらから", "/users/sign_in" ,class: "btn btn-default btn-lg" %></P>
-  <P><%=link_to "新規登録はこちらから", "/users/sign_up" ,class: "btn btn-default btn-lg" %></P>
+  <P><%=link_to "ログインはこちらから", "/users/sign_in" ,class: "btn btn-default btn-lg　w-25" %></P>
+  <P><%=link_to "新規登録はこちらから", "/users/sign_up" ,class: "btn btn-default btn-lg　w-25" %></P>
 <% end %>
 </div>
