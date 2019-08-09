@@ -28,7 +28,7 @@
   <table border="1" class="table-bordered table-condensed table table-striped">
     <col align="left" bgcolor="#ffffeb">
     <tr><td>
-      開催場所:
+      場　所:
       <% if @event.placelink.present? %>
         <%= link_to(@event.place, @event.placelink) %>
       <% else %>
@@ -75,7 +75,7 @@
      <% title="参加する" %>
      <% kubun=1 %>
     <% elsif @event.opendate>now and  @sanka.present? %>
-      <% title="キャンセル" %>
+      <% title="参加取消" %>
       <% kubun=2 %>
     <% end %>
     <% if kubun.to_i>=1 %>
@@ -94,7 +94,7 @@
     <% @commentcontent.each do |f| %>
       <tr><td> 
       <%= usernamereturn(f.user_id) %>さん　投稿日時：<%=f.created_at.strftime("%Y-%m-%d %H:%M") %><br>
-      <%=simple_format(f.content, {}, wrapper_tag: "div") %>
+      <%=raw Rinku.auto_link(simple_format(f.content, {}, wrapper_tag: "div")) %>
       </td></tr>
     <% end %>
   <% end %>
