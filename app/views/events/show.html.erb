@@ -1,8 +1,8 @@
 <% provide(:title, "詳細") %>
-
+<% require "date" %>
 <div class="col-md-6 col-md-offset-3">
-
-<% now = Time.current %>
+<% now = Time.current %> 
+<% deadline = now.yesterday %>
 <% session[:geturl2]=@url %>
 <center>
 <h3 class="lead">イベントの詳細</h3>
@@ -28,7 +28,7 @@
   <table border="1" class="table-bordered table-condensed table table-striped">
     <col align="left" bgcolor="#ffffeb">
     <tr><td>
-      場　所:
+      場　所：
       <% if @event.placelink.present? %>
         <%= link_to(@event.place, @event.placelink) %>
       <% else %>
@@ -63,18 +63,18 @@
       <% i=i+1 %>
     <% end %>
     <%= i %>名　定員<%=@event.capacity %>名　　
-    <% if possible>0 and @event.held==true and @event.opendate>now %>
+    <% if possible>0 and @event.held==true and @event.opendate>deadline %>
       <%="残り#{possible}名参加できます" if @event.recruiting==true %>
-    <% elsif possible==0 and @event.held==true and @event.opendate>now %>
+    <% elsif possible==0 and @event.held==true and @event.opendate>deadline %>
       満席です
     <% end %>
   </td></tr>
   <% nokori=@event.capacity-i %>
   <% if @event.held==true %>
-    <% if @event.opendate>now and nokori>0 and @sanka.empty?  and @event.recruiting==true %> 
+    <% if @event.opendate>deadline and nokori>0 and @sanka.empty?  and @event.recruiting==true %> 
      <% title="参加する" %>
      <% kubun=1 %>
-    <% elsif @event.opendate>now and  @sanka.present? %>
+    <% elsif @event.opendate>deadline and  @sanka.present? %>
       <% title="参加取消" %>
       <% kubun=2 %>
     <% end %>
