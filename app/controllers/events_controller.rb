@@ -197,9 +197,9 @@ class EventsController < ApplicationController
      params.require(:event).permit(:title, :note,:place,:placelink,:opendate,:starttime,:finishtime,:money,:capacity,:user_id,:sendmailmethod)
   end
   def timeselect
-      now = Time.current
+    now = Time.current
     @dates=Array.new()
-    @idate=now.tomorrow
+    @idate=now
     (@idate.to_datetime..now.next_year).each do|c|
       date = Date.new(c.year, c.month, c.day)
       iw=c.strftime("%Y年%-m月%-d日 %a")
