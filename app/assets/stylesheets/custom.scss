@@ -55,7 +55,7 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: black;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -131,4 +131,21 @@ body{background-color:#F0F0F0;}
 }  
 .table-fix{
   table-layout: fixed;
+}
+.success {
+  color: black;
+  background-color: #98fb98;
+  font-size: 18px; 
+}
+
+.notice {
+  color: black;
+  background-color: blue;
+  font-size: 18px; 
+}
+
+.alert {
+  color: black;
+  background-color: #bce2e8;
+  font-size: 18px; 
 }
