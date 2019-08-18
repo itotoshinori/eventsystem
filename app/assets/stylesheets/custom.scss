@@ -78,7 +78,7 @@ p {
 .kakomi-maru3 {
   margin: 1em auto;
   padding: 1em;
-  width: 90%;
+  width: 100%;
  border: 5px dotted #b0c4de; /*太さ・線種・色*/
  background-color: #fff; /* 背景色 */
  border-radius: 1px; /*角の丸み*/
@@ -129,3 +129,6 @@ body{background-color:#F0F0F0;}
   background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
   transition: .4s;
 }  
+.table-fix{
+  table-layout: fixed;
+}
