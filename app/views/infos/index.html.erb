@@ -3,7 +3,9 @@
 <% if user_signed_in? %>
   <p><%= current_user.name+"さんでログイン中です"%></p>
   <p><%= link_to "イベント一覧表", "events/index",class: "btn-flat-stripe"  %></p>
-  <p><%= link_to "編集","users/edit/",class: "btn-flat-stripe" %></p>
+  <% if  current_user.provider==nil %>
+    <p><%= link_to "編集","users/edit/",class: "btn-flat-stripe" %></p>
+  <% end %>
   <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-flat-stripe" %></p>
 <% else %>
   <P><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></P>
