@@ -7,6 +7,7 @@
     <p><%= link_to "編集","users/edit/",class: "btn-flat-stripe" %></p>
   <% end %>
   <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-flat-stripe" %></p>
+  <p><%= link_to "退会する", "withdraw/taikai",data: { confirm: "本当に退会しますか？" } %></p>
 <% else %>
   <P><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "ログインはこちらから", "/users/sign_in" ,class: "btn btn-default btn-lg　w-40" %></P>

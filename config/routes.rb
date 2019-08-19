@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   
   post '/events/:id', to: 'events#show'
   
+  get 'withdraw/taikai'
+  
   resources :events
   
   root :to => 'infos#index'

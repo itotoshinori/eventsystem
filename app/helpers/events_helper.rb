@@ -37,9 +37,13 @@ module EventsHelper
         kekka
     end
     def usernamereturn(i)
-        if i.present?
+        user=User.where(id:i)
+        if user.present?
+        #if i.present?
             user=User.find(i)
             user.name
+        else
+            "退会者"
         end
     end
     def mojiseigen(moji,jisuu)
