@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post  'passwordreset/reset'
+  
   post '/mail', to: 'events#mail', as: :mail;
   
   post  'events/moneycollection'

@@ -1,0 +1,28 @@
+<div class="center jumbotron">
+<div class="lead">ログイン</div>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :メール %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード %><br />
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :コンピューターに記憶 %>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit "ログイン" %>
+  </div>
+<% end %>
+または、
+<p><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></p>
+<%#= render "users/shared/links" %>
+</div>

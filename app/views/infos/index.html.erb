@@ -1,3 +1,49 @@
+  <style>
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.content{
+    margin: 0 auto;
+    padding: 40px;
+}
+.modal{
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.modal__bg{
+    background: rgba(0,0,0,0);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+}
+.modal__content{
+    background: #fff;
+    left: 50%;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 20%;
+}
+</style>
+<script>
+$(function(){
+    $('.js-modal-open').on('click',function(){
+        $('.js-modal').fadeIn();
+        return false;
+    });
+    $('.js-modal-close').on('click',function(){
+        $('.js-modal').fadeOut();
+        return false;
+    });
+});
+</script>
+
 <h1>イベント管理システム</h1>
 <div class="center jumbotron">
 <% if user_signed_in? %>
@@ -7,10 +53,25 @@
     <p><%= link_to "編集","users/edit/",class: "btn-flat-stripe" %></p>
   <% end %>
   <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-flat-stripe" %></p>
-  <p><%= link_to "退会する", "withdraw/taikai",data: { confirm: "本当に退会しますか？" } %></p>
+  <%= link_to "退会する", "withdraw/taikai",data: { confirm: "本当に退会しますか？" } %>
 <% else %>
   <P><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "ログインはこちらから", "/users/sign_in" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "新規登録はこちらから", "/users/sign_up" ,class: "btn btn-default btn-lg　w-40" %></P>
-<% end %>
-</div>
+  </div>
+  <div class="content">
+    <a class="js-modal-open" href="">パスワードのリセット</a>
+  </div>
+  <div class="modal js-modal">
+        <div class="modal__bg js-modal-close"></div>
+        <div class="modal__content">
+            <b>パスワードのリセット</b><br>フェイスブック認証の方は対象外です<br><br>  
+            <%= form_tag({:controller => 'passwordreset', :action => 'reset'}, {:method => :post}) do %>
+              <%= text_field_tag :email,nil, placeholder: "登録のメールアドレス" %><br>
+              <br><%= submit_tag "送信", class: "btn btn-primary" %>
+              <a class="btn btn-primary" href="">閉じる</a>
+            <% end %>
+            <br>
+        </div><!--modal__inner-->
+  </div><!--modal-->
+ <% end %>
