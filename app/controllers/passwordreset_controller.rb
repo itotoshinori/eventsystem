@@ -11,7 +11,7 @@ class PasswordresetController < ApplicationController
       passwordreset=Passwordreset.new(passnum:passnum,user_id:user_id,email:email)
       passwordreset.save
       @content="下記アドレスをクリックしてパスワードをリセットして下さい"
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/passworrest/#{passnum}/#{passwordreset.id}"
+      @link="https://enigmatic-lowlands-69028.herokuapp.com/passwordrest/#{passnum}/#{passwordreset.id}"
       MailsysMailer.sendmail(@content,@link,email).deliver_later
       flash[:success]="パスワードのリセットのためのメールを送りました"
     else

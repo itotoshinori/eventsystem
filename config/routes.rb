@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "passwordreset/passreset/:upper/:lower" => "passwordreset/passreset/"
+  
   post  'passwordreset/reset'
   
   post '/mail', to: 'events#mail', as: :mail;
