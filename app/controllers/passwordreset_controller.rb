@@ -1,5 +1,8 @@
 class PasswordresetController < ApplicationController
   require 'securerandom'
+  require 'date'
+  require 'active_support/core_ext'
+  today = DateTime.now()    
   def reset
     email=params[:email]
     @user=User.find_by(email:email,provider:nil)
@@ -23,10 +26,16 @@ class PasswordresetController < ApplicationController
     redirect_to '/'
   end
   def show
-     passkey=params[:id] 
-     passwordreset=Passwordreset.find_by(passnum:passkey)
-     User.find(passwordreset.user_id).reset_password("password", "password")
-     flash[:notice]="パスワードを password に変更しました。至急ログインしてご自分のパスワードに変更下さい。"
-     redirect_to '/users/sign_in'
+    
+    passkey=params[:id] 
+    passwordreset=Passwordreset.find_by(passnum:passkey)
+    if passwordreset.created_at>today.hour.ago
+      User.find(passwordreset.user_id).reset_password("password", "password")
+      flash[:notice]="パスワードを password に変更しました。至急ログインして編集のリンクでご自分のパスワードに変更下さい。"
+      redirect_to '/users/sign_in'
+    else
+      flash[:notice]="期限切れです。再度処理方お願いします"
+      redirect_to '/'
+    end 
   end
 end
