@@ -16,7 +16,7 @@ class PasswordresetController < ApplicationController
       passkey=SecureRandom.hex(8)+passwordreset.id.to_s
       passwordreset.passnum=passkey
       passwordreset.save
-      @content="下記アドレスをクリックしてパスワードをリセットして下さい"
+      @content="下記アドレスをクリックしてパスワードをリセットして下さい\n１時間以内に処理して下さい"
       @link="https://enigmatic-lowlands-69028.herokuapp.com/passwordreset/#{passkey}"
       MailsysMailer.sendmail(@content,@link,email).deliver_later
       flash[:success]="パスワードのリセットのためのメールを送りました。確認下さい。"
@@ -29,8 +29,12 @@ class PasswordresetController < ApplicationController
   def show
     passkey=params[:id] 
     passwordreset=Passwordreset.find_by(passnum:passkey)
+    if passwordreset.create_at+60*60>Time.now
       User.find(passwordreset.user_id).reset_password("password", "password")
       flash[:notice]="パスワードを password に変更しました。至急ログインして編集のリンクでご自分のパスワードに変更下さい。"
-      redirect_to '/users/sign_in'
+    else
+      flash[:notice]="有効時間切れです"
+    end
+    redirect_to '/users/sign_in'
   end
 end
