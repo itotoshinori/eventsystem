@@ -32,7 +32,5 @@ class PasswordresetController < ApplicationController
       User.find(passwordreset.user_id).reset_password("password", "password")
       flash[:notice]="パスワードを password に変更しました。至急ログインして編集のリンクでご自分のパスワードに変更下さい。"
       redirect_to '/users/sign_in'
-      flash[:notice]="期限切れです。再度処理方お願いします"
-      redirect_to '/'
   end
 end
