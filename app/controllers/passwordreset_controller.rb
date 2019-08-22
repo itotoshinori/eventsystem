@@ -7,11 +7,11 @@ class PasswordresetController < ApplicationController
       flash[:notice]="メールアドレスを入力して送信して下さい"
     elsif @user.present?
       user_id=@user.id
-      passnum=SecureRandom.hex(8)
-      passwordreset=Passwordreset.new(passnum:passnum,user_id:user_id,email:email)
+      passkey=SecureRandom.hex(8)+user_id.to_s
+      passwordreset=Passwordreset.new(passnum:passkey,user_id:user_id,email:email)
       passwordreset.save
       @content="下記アドレスをクリックしてパスワードをリセットして下さい"
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/passwordrest/#{passwordreset.id}#{passnum}"
+      @link="https://enigmatic-lowlands-69028.herokuapp.com/passwordrest/#{passkey}"
       MailsysMailer.sendmail(@content,@link,email).deliver_later
       flash[:success]="パスワードのリセットのためのメールを送りました"
     else
@@ -20,7 +20,7 @@ class PasswordresetController < ApplicationController
     redirect_to '/'
   end
   def passreset
+     flash[:notice]="パスワードを password に変更しました。至急ご自分のパスワードに変更下さい。"
      redirect_to '/'
-     flash[:notice]="登録のアドレスではありません。処理を中止しました。"
   end
 end
