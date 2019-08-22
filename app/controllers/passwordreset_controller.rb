@@ -19,7 +19,7 @@ class PasswordresetController < ApplicationController
     end
     redirect_to '/'
   end
-  def passreset
+  def show
      flash[:notice]="パスワードを password に変更しました。至急ご自分のパスワードに変更下さい。"
      redirect_to '/'
   end
