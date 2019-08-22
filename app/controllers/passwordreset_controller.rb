@@ -25,6 +25,7 @@ class PasswordresetController < ApplicationController
     end
     redirect_to '/'
   end
+  
   def show
     passkey=params[:id] 
     passwordreset=Passwordreset.find_by(passnum:passkey)
