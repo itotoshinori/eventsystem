@@ -29,7 +29,7 @@ class PasswordresetController < ApplicationController
   def show
     passkey=params[:id] 
     passwordreset=Passwordreset.find_by(passnum:passkey)
-    if passwordreset.create_at+60*60>Time.now
+    if passwordreset.created_at+60*60>Time.now
       User.find(passwordreset.user_id).reset_password("password", "password")
       flash[:notice]="パスワードを password に変更しました。至急ログインして編集のリンクでご自分のパスワードに変更下さい。"
     else
