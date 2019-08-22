@@ -26,16 +26,12 @@ class PasswordresetController < ApplicationController
     redirect_to '/'
   end
   def show
-    
     passkey=params[:id] 
     passwordreset=Passwordreset.find_by(passnum:passkey)
-    if passwordreset.created_at>today.hour.ago
       User.find(passwordreset.user_id).reset_password("password", "password")
       flash[:notice]="パスワードを password に変更しました。至急ログインして編集のリンクでご自分のパスワードに変更下さい。"
       redirect_to '/users/sign_in'
-    else
       flash[:notice]="期限切れです。再度処理方お願いします"
       redirect_to '/'
-    end 
   end
 end
