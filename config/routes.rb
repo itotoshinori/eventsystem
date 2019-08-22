@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'passwordreset/passwordreset/:id' => 'passwordreset#passreset'
+  get 'passwordreset/:id' => 'passwordreset#passreset'
   
   post  'passwordreset/reset'
   
