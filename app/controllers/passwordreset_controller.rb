@@ -8,10 +8,13 @@ class PasswordresetController < ApplicationController
     elsif @user.present?
       user_id=@user.id
       passkey=SecureRandom.hex(8)+user_id.to_s
-      passwordreset=Passwordreset.new(passnum:passkey,user_id:user_id,email:email)
+      passwordreset=Passwordreset.new(user_id:user_id,email:email)
+      passwordreset.save
+      passkey=SecureRandom.hex(8)+passwordreset.id.to_s
+      passwordreset.passnum=passkey
       passwordreset.save
       @content="下記アドレスをクリックしてパスワードをリセットして下さい"
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/passwordrest/#{passkey}"
+      @link="https://enigmatic-lowlands-69028.herokuapp.com/passwordreset/#{passkey}"
       MailsysMailer.sendmail(@content,@link,email).deliver_later
       flash[:success]="パスワードのリセットのためのメールを送りました"
     else
