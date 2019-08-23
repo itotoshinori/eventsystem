@@ -32,9 +32,11 @@ class PasswordresetController < ApplicationController
     if passwordreset.created_at+60*60>Time.now
       User.find(passwordreset.user_id).reset_password("password", "password")
       flash[:notice]="パスワードを password に変更しました。至急ログインして編集のリンクでご自分のパスワードに変更下さい。"
+      redirect_to '/users/sign_in'
     else
       flash[:notice]="有効時間切れです"
+      redirect_to '/'
     end
-    redirect_to '/users/sign_in'
+    
   end
 end
