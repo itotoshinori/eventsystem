@@ -38,6 +38,16 @@
     <tr><td>主催者：<%= usernamereturn(@event.user_id) %></td></tr>
     <tr><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)　<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>
     <tr><td><%=raw Rinku.auto_link(simple_format(@event.note, {}, wrapper_tag: "div")) %></td></tr>
+    <% if @event.url.present? %>
+      <tr><td>
+      <% if @event.urlname.blank? %>
+        <% linkname="リンク" %>
+      <% else %>
+        <% linkname=@event.urlname %>
+      <% end %>
+      <%= link_to linkname, @event.url, target: :_blank %>
+      </td></tr>
+    <% end %>
     <tr><td >参加費：<%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
     <tr><td>
       参加者<br>
