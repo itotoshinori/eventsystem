@@ -155,17 +155,23 @@ class EventsController < ApplicationController
     session.delete(:geturl2)
     comment=params[:comment]
     event_id=params[:event_id]
+    sendmail=params[:sendmail]
     if comment.present?
       user_id=current_user.id
       commentn=Comment.new(content:comment,user_id:user_id,event_id:event_id)
       commentn.save
       event=Event.find(event_id)
-      if current_user.id!=event.user_id
+      #if current_user.id!=event.user_id && sendmail!="1" 
         @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{event_id}"
         @content="開催イベント：#{event.title}に投稿がありました"
-        @user=User.where(id:event.user_id)
-        sendmailsys
-      end
+        if sendmail=="1"
+          @user=User.where(id:event.user_id)
+          sendmailsys
+        elsif sendmail=="3"
+          @user=Participant.joins(:user).where(event_id:event.id)
+          sendmailsys2
+        end
+      #end
       flash[:success]="コメントが投稿されました"
     else
       flash[:warning]="コメント投稿に失敗しました。メッセージが入力されていません。"
