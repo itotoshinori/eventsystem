@@ -16,6 +16,12 @@
       <% end %>
 	    <%= f.text_area :note, placeholder: 'enter イベント詳細',cols:65,rows:10 %>
       </p>
+      <p>
+      <%= f.label :リンク名 %><br>
+      <%= f.text_field :urlname,value:@event.url %><br>
+      <%= f.label :リンク %><br>
+      <%= f.url_field :url,value:@event.url, placeholder:'enter Url',class: 'form-control' %>
+      </p>
       <%= f.label :開催予定日時 %><br>
       <%= f.collection_select :opendate, @dates, :id, :dateweek, :selected=>@sdate,class: 'form-control' %>
       <%= f.time_select :starttime, default: { hour:@starthour, min:@startmin } %>-

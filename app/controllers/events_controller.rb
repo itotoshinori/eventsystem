@@ -193,7 +193,7 @@ class EventsController < ApplicationController
   
   private
   def event_params
-     params.require(:event).permit(:title, :note,:place,:placelink,:opendate,:starttime,:finishtime,:money,:capacity,:user_id,:sendmailmethod)
+     params.require(:event).permit(:title, :note,:place,:placelink,:opendate,:starttime,:finishtime,:money,:capacity,:user_id,:sendmailmethod,:url,:urlname)
   end
   def timeselect
     now = Time.current

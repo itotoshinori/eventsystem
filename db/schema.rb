@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190821190841) do
+ActiveRecord::Schema.define(version: 20190824030710) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20190821190841) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "recruiting", default: true, null: false
+    t.string "linkname1"
+    t.string "link1"
+    t.string "linkname2"
+    t.string "link2"
+    t.string "linkname3"
+    t.string "link3"
+    t.string "url"
+    t.string "urlname"
   end
 
   create_table "participants", force: :cascade do |t|
