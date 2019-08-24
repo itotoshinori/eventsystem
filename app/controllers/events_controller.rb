@@ -57,6 +57,7 @@ class EventsController < ApplicationController
     @sanka=Participant.where(event_id:@event.id,user_id:current_user.id)
     @comment=Comment.new
     @commentcontent=Comment.where(event_id:@event.id)
+    ptselect
   end
   
   def edit
@@ -69,7 +70,7 @@ class EventsController < ApplicationController
     settingvalue
     session[:geturl]=session[:geturl2]
     session.delete(:geturl2)
-    sendmail=event_params[:sendmailmethod]
+    sendmail=event_params[:sendmail] 
     title= @event.title
     @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
     if params[:commit] == "中止"
@@ -155,24 +156,33 @@ class EventsController < ApplicationController
     session.delete(:geturl2)
     comment=params[:comment]
     event_id=params[:event_id]
-    sendmail=params[:sendmail]
+    hash=params[:sendmail]
+    sendmail=hash["id"]
     if comment.present?
       user_id=current_user.id
       commentn=Comment.new(content:comment,user_id:user_id,event_id:event_id)
       commentn.save
       event=Event.find(event_id)
       #if current_user.id!=event.user_id && sendmail!="1" 
-        @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{event_id}"
+      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{event_id}"
         @content="開催イベント：#{event.title}に投稿がありました"
-        if sendmail=="1"
+        if sendmail=="a"
           @user=User.where(id:event.user_id)
           sendmailsys
-        elsif sendmail=="3"
+          flash[:success]="コメントが投稿され、通知メールを主催者に送りました。"
+        elsif sendmail=="c"
           @user=Participant.joins(:user).where(event_id:event.id)
           sendmailsys2
+          flash[:success]="コメントが投稿され、通知メールを参加者に送りました。"
+        elsif sendmail!="b"
+          @user=User.where(id:sendmail)
+          sendmailsys
+          flash[:success]="コメントが投稿され、通知メールを#{usernamereturn(sendmail)}さんに送りました。"
+        else
+          flash[:success]="コメントが投稿されました"
         end
       #end
-      flash[:success]="コメントが投稿されました"
+      
     else
       flash[:warning]="コメント投稿に失敗しました。メッセージが入力されていません。"
     end
@@ -207,9 +217,24 @@ class EventsController < ApplicationController
     @idate=now
     (@idate.to_datetime..now.next_year).each do|c|
       date = Date.new(c.year, c.month, c.day)
-      iw=c.strftime("%Y年%-m月%-d日 %a")
+      wd = ["日", "月", "火", "水", "木", "金", "土"]
+      iw=c.strftime("%Y/%m/%d(#{wd[c.wday]})")
+      #iw=c.strftime("%Y年%-m月%-d日 %w(日 月 火 水 木 金 土)[c.wday]")
       @dates << Datecollection.new(date,iw)
     end
+  end
+  def ptselect
+    @pts=Array.new
+    @pts << Ptcollection.new("a","主催者に送る")
+    @pts << Ptcollection.new("b","登録のみ")
+    @pts << Ptcollection.new("c","参加者に送る")
+    @user=Participant.joins(:user).where(event_id:@event.id)
+    @user.each do |f|
+      if f.id!=@event.user_id
+        @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
+      end
+    end
+    
   end
   def settingvalue
     sdate=@event.opendate

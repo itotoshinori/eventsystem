@@ -5,7 +5,7 @@
 <% deadline = now.yesterday %>
 <% session[:geturl2]=@url %>
 <center>
-<h3 class="lead">イベントの詳細</h3>
+<h3 class="lead">イベントの詳細<%=session[:test] %></h3>
 <% if current_user.id==@event.user_id %>
     <center><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></center>
 <% end %>
@@ -99,7 +99,12 @@
     <%= hidden_field_tag :event_id, @event.id %>
     <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "40x2" %><br>
     通知方法<br>
-      <%= select_tag 'sendmail', options_for_select({主催者にメールを送る: 1, 登録のみ: 2, 参加者全員にメールを送る: 3}, 1) %><br>
+    <%#= f.collection_select :opendate, @dates, :id, :dateweek, :selected=>@sdate,class: 'form-control' %>
+    <%#= collection_select:sendmail,@pts, :id, :name %>
+     <%#= collection_select(:chrt, :id_eki, @eki, :id_eki, :name,{},{class: "form-control"}) %>
+     <%#= f.collection_select :prefecture_id, Prefecture.all, :id, :name %>
+    <%= collection_select(:sendmail,:id,@pts,:id, :name) %>
+      <%#= select_tag 'sendmail', options_for_select({主催者にメールを送る: 1, 登録のみ: 2, 参加者全員にメールを送る: 3}, 1) %><br>
     <%= submit_tag "送信", class: "btn btn-primary" %>
   <% end %>
   <% if @commentcontent.present? %>

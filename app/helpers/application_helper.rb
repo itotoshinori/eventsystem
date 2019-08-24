@@ -6,6 +6,13 @@ module ApplicationHelper
       @dateweek=dateweek
     end
   end
+  class Ptcollection
+  attr_accessor :id,:name
+    def initialize(id,name)
+      @id=id
+      @name=name
+    end
+  end
   def full_title(page_title = '')
     base_title = "イベント管理システム"
     if page_title.empty?
