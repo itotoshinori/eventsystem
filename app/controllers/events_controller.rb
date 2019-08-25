@@ -217,7 +217,7 @@ class EventsController < ApplicationController
     @idate=now
     (@idate.to_datetime..now.next_year).each do|c|
       date = Date.new(c.year, c.month, c.day)
-      wd = ["���", "月", "火", "水", "木", "金", "土"]
+      wd = ["日","月", "火", "水", "木", "金", "土"]
       iw=c.strftime("%Y/%m/%d(#{wd[c.wday]})")
       #iw=c.strftime("%Y年%-m月%-d日 %w(日 月 火 水 木 金 土)[c.wday]")
       @dates << Datecollection.new(date,iw)
