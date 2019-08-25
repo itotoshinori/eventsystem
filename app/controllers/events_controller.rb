@@ -217,7 +217,7 @@ class EventsController < ApplicationController
     @idate=now
     (@idate.to_datetime..now.next_year).each do|c|
       date = Date.new(c.year, c.month, c.day)
-      wd = ["日", "月", "火", "水", "木", "金", "土"]
+      wd = ["���", "月", "火", "水", "木", "金", "土"]
       iw=c.strftime("%Y/%m/%d(#{wd[c.wday]})")
       #iw=c.strftime("%Y年%-m月%-d日 %w(日 月 火 水 木 金 土)[c.wday]")
       @dates << Datecollection.new(date,iw)
@@ -230,9 +230,7 @@ class EventsController < ApplicationController
     @pts << Ptcollection.new("c","参加者に送る")
     @user=Participant.joins(:user).where(event_id:@event.id)
     @user.each do |f|
-      if f.id!=@event.user_id
         @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
-      end
     end
     
   end
