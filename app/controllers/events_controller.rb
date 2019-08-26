@@ -53,7 +53,7 @@ class EventsController < ApplicationController
     end
     @event = Event.find(params[:id])
     @sankasha=Participant.all
-    @sankasha=Participant.where(event_id:@event.id)
+    @sankasha=Participant.where(event_id:@event.id).order(created_at: "ASC")
     @sanka=Participant.where(event_id:@event.id,user_id:current_user.id)
     @comment=Comment.new
     @commentcontent=Comment.where(event_id:@event.id)
