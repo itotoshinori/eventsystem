@@ -47,7 +47,7 @@
       <%= f.number_field :capacity,value:@capacity %>
       </p>
       <%= f.hidden_field :user_id,value:current_user.id %>
-      <%= f.submit "実行", class: "btn btn-primary" %>
+      <%= f.submit "実行", class: "btn btn-primary",data: { disable_with: '送信中...' } %>
     <% end %>
     <p><center>
      <A HREF="javascript:history.back()">前のページに戻る</A>

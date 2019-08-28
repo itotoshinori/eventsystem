@@ -35,12 +35,9 @@
           <%= msg %>
         </div>
       <% end %>
-
-      <div class="container">
-        <%= yield %>
-      </div>
-      <%= debug(params) if Rails.env.development? %>
+      <%= yield %>
     </div>
+    <%= debug(params) if Rails.env.development? %>
   </body>
   </body>
 </html>

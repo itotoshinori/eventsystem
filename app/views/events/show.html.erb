@@ -89,8 +89,8 @@
       <% kubun=2 %>
     <% end %>
     <% if kubun.to_i>=1 %>
-      <tr><td colspan="2"><center>
-      <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-lg"} %>
+      <tr><td colspan="2"><center> 
+      <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-lg",data: { disable_with: '送信中...' }} %>
       </td></tr>
     <% end %>
   <% end %>
