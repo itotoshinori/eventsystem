@@ -119,7 +119,7 @@ class EventsController < ApplicationController
     possiblecount=@event.capacity-@event.participants.count
     if possiblecount==0 and @kubun=="1"
       flash[:warning]="申し訳けございません。すでに満席で参加登録できません"
-    elsif @kubun=="1"
+    elsif @kubun=="1" and Participant.find_by(user_id:user_id,event_id:@event.id).blank?
       sanka=Participant.new(user_id:user_id,event_id:@event.id)
       sanka.save
       @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{sanka.event_id}"
@@ -181,8 +181,6 @@ class EventsController < ApplicationController
         else
           flash[:success]="コメントが投稿されました"
         end
-      #end
-      
     else
       flash[:warning]="コメント投稿に失敗しました。メッセージが入力されていません。"
     end
@@ -223,6 +221,7 @@ class EventsController < ApplicationController
       @dates << Datecollection.new(date,iw)
     end
   end
+  
   def ptselect
     @pts=Array.new
     @pts << Ptcollection.new("a","主催者に送る")
@@ -232,8 +231,8 @@ class EventsController < ApplicationController
     @user.each do |f|
         @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
     end
-    
   end
+  
   def settingvalue
     sdate=@event.opendate
     @starthour=@event.starttime.hour
@@ -244,16 +243,19 @@ class EventsController < ApplicationController
     @capacity=@event.capacity
     @sdate=Date.new(sdate.year, sdate.month, sdate.day)
   end
+  
   def nowday
     now = Time.current
     today=Date.new(now.year, now.month, now.day)-1
     today
   end
+  
   def sendmailsys
     @user.each do |u|
       MailsysMailer.sendmail(@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
     end
   end
+  
   def sendmailsys2
     @user.each do |u|
       MailsysMailer.sendmail(@content,@link,u.user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
