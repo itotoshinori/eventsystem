@@ -22,7 +22,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     settingvalue
     if @event.save
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+      @link=URL+"/events/#{@event.id}"
       @content="新規開催イベント：#{@event.title}"
       @user=User.all
       sendmailsys
@@ -72,7 +72,7 @@ class EventsController < ApplicationController
     session.delete(:geturl2)
     sendmail=event_params[:sendmail] 
     title= @event.title
-    @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+    @link=URL+"/events/#{@event.id}"
     if params[:commit] == "中止"
       @content="開催イベント：#{@event.title}が中止になりました"
       @event.held=false
@@ -81,18 +81,17 @@ class EventsController < ApplicationController
     elsif params[:commit] == "編集＋募集停止"
       @event.recruiting=false
       @event.update(event_params)
-      #@link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+      #@link=URL+"/events/#{@event.id}"
       @content="開催イベント：#{@event.title}が編集され募集が終了しました。"
       flash[:success]="イベントの変更処理及び募集停止しました"
     elsif params[:commit] == "編集＋募集再開"
       @event.recruiting=true
       @event.update(event_params)
-      #@link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
       @content="開催イベント：#{@event.title}が編集され募集が再開されました"
       flash[:success]="イベントの変更処理及び募集再開しました"
     elsif params[:commit] == "編集"
       @event.update(event_params)
-      #@link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{@event.id}"
+      
       @content="開催イベント：#{@event.title}が編集されました"
       flash[:success]="イベントの変更処理をしました"
     else
@@ -122,7 +121,7 @@ class EventsController < ApplicationController
     elsif @kubun=="1" and Participant.find_by(user_id:user_id,event_id:@event.id).blank?
       sanka=Participant.new(user_id:user_id,event_id:@event.id)
       sanka.save
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{sanka.event_id}"
+      @link=URL+"/events/#{sanka.event_id}"
       @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
@@ -132,7 +131,7 @@ class EventsController < ApplicationController
         status="full"
       end
       sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: current_user.id)
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{sanka.event_id}"
+      @link=URL+"events/#{sanka.event_id}"
       sanka.destroy
       @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
       @user=User.where(id:@event.user_id)
@@ -164,7 +163,7 @@ class EventsController < ApplicationController
       commentn.save
       event=Event.find(event_id)
       #if current_user.id!=event.user_id && sendmail!="1" 
-      @link="https://enigmatic-lowlands-69028.herokuapp.com/events/#{event_id}"
+      @link=URL+"/events/#{event_id}"
         @content="開催イベント：#{event.title}に投稿がありました"
         if sendmail=="a"
           @user=User.where(id:event.user_id)
