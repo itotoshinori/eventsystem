@@ -8,19 +8,19 @@
       <% if @event.errors.messages[:title].any? %>
         <b><font color="red"><%= @event.errors.messages[:title][0] %></font></b>
       <% end %>
-      <%= f.text_field :title, placeholder: 'enter イベント名',class: 'form-control' ,value:@event.title %>
+      <%= f.text_field :title, placeholder: 'enter イベント名(必須)',class: 'form-control' ,value:@event.title %>
       <p>
       <%= f.label :イベントの詳細 %><br>
       <% if @event.errors.messages[:note].any? %>
          <b><font color="red"><%= @event.errors.messages[:note][0] %></font></b>
       <% end %>
-	    <%= f.text_area :note, placeholder: 'enter イベント詳細',cols:65,rows:10 %>
+	    <%= f.text_area :note, placeholder: 'enter イベント詳細(必須)',cols:65,rows:10 %>
       </p>
       <p>
       <%= f.label :リンク名 %><br>
-      <%= f.text_field :urlname,value:@event.url %><br>
+      <%= f.text_field :urlname,value:@event.url, placeholder:'enter Url名(ブランク可)' %><br>
       <%= f.label :リンク %><br>
-      <%= f.url_field :url,value:@event.url, placeholder:'enter Url',class: 'form-control' %>
+      <%= f.url_field :url,value:@event.url, placeholder:'enter Url(ブランク可)',class: 'form-control' %>
       </p>
       <%= f.label :開催予定日時 %><br>
       <%= f.collection_select :opendate, @dates, :id, :dateweek, :selected=>@sdate,class: 'form-control' %>
@@ -31,10 +31,10 @@
       <% if @event.errors.messages[:place].any? %>
         <b><font color="red"><%= @event.errors.messages[:place][0] %></font></b>
       <% end %><br>
-      <%= f.text_field :place, placeholder:'enter 会場' %>
+      <%= f.text_field :place, placeholder:'enter 会場(必須)' %>
       </p>
       <%= f.label :場所リンク %>(Zoomの場合はUrlを入力願います)
-      <%= f.url_field :placelink, placeholder:'enter 場所のUrl',class: 'form-control' %>
+      <%= f.url_field :placelink, placeholder:'enter 場所のUrl(ブランク可)',class: 'form-control' %>
       <br>
       <p>
       <%= f.label :参加費 %><br>
