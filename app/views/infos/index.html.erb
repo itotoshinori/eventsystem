@@ -43,9 +43,21 @@ $(function(){
     });
 });
 </script>
+<head>
+<%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                               'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application',
+                               'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
 
-<h1>イベント管理システム</h1>
-<div class="center jumbotron">
 <% if user_signed_in? %>
   <p><%= current_user.name+"さんでログイン中です"%></p>
   <p><%= link_to "イベント一覧表", "events/index",class: "btn-flat-stripe"  %></p>
@@ -54,12 +66,16 @@ $(function(){
   <% end %>
   <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-flat-stripe" %></p>
   <%= link_to "退会する", "withdraw/taikai",data: { confirm: "本当に退会しますか？" } %>
+  </div>
 <% else %>
+<h3>イベント管理システムへようこそ！<br>
+ログインしてイベントに参加しましょう！</h3>
   <P><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "ログインはこちらから", "/users/sign_in" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "新規登録はこちらから", "/users/sign_up" ,class: "btn btn-default btn-lg　w-40" %></P>
   <br><a class="js-modal-open" href="">パスワードのリセット</a>
   </div>
+  
   <div class="content">
     
   </div>

@@ -1,14 +1,12 @@
 <% provide(:title, "中止") %>
 <% require "date" %>
 <title>これからのイベント一覧</title>
-<center><p class="h2">中止になったイベント一覧</p></center>
 <div class="lead"></div>
 <%= link_to "これから","/events/index",class:"btn btn-info" %>
 <%= link_to "過去","/events/indexpast",class:"btn btn-info" %>
 <%= link_to "中止","/events/indexcancel",class:"btn btn-info" %>
-<center>
+<h2>中止になったイベント一覧</h2>
 <%= render partial: "index" %>
-</center>
 <%= will_paginate @event, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 </div>
 

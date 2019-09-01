@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                               'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application',
+                               'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <%= link_to "イベント管理システム", '/events/index', id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "新規",   '/events/new' %></li>
+            <li><%= link_to "一覧",   '/events/index' %></li>
+            <li><%= link_to "ログイン", '/' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <body bgcolor="#ffffcc">
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <div class="alert alert-<%= name %>">
+          <%= msg %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+    <%= debug(params) if Rails.env.development? %>
+  </body>
+  </body>
+</html>

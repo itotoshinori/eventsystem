@@ -1,6 +1,5 @@
 <div class="center jumbotron">
-<div class="lead">ログイン</div>
-
+イベント管理システムにログインして下さい
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :メール %><br />
@@ -22,7 +21,7 @@
     <%= f.submit "ログイン" %>
   </div>
 <% end %>
-または、
-<p><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></p>
+または、<br>
+<%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %>
 <%#= render "users/shared/links" %>
-</div>
+</div></div>

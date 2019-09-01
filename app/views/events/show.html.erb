@@ -1,15 +1,13 @@
-<% provide(:title, "詳細") %>
+<% provide(:title, "これから") %>
 <% require "date" %>
-<div class="col-md-6 col-md-offset-3">
 <% now = Time.current %> 
 <% deadline = now.yesterday %>
 <% session[:geturl2]=@url %>
-<center>
-<h3 class="lead">イベントの詳細<%=session[:test] %></h3>
+<title>イベント詳細</title>
+<h2>イベント詳細</h2>
 <% if current_user.id==@event.user_id %>
-    <center><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></center>
+   <%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %>
 <% end %>
-<p>
 <% possible=@event.capacity-@event.participants.count %>
 <% if @event.held==false %>
   <div class="kakomi-maru2">このイベントは中止になりました</div><br>
@@ -17,40 +15,18 @@
 <% if @event.recruiting==false %>
   <p>このイベントの募集は終了しました</p>
 <% end %>
-<% if @url %>
-  <%= link_to("前のページに戻る",@url) %>
-  <br><br>
-<% end %>
-</center>
-<div class="jumbotron">
-  <center><div class="lead"><%= @event.title %></div></center>
-  <div class="kakomi-maru3"> 
-  <table border="1" class="table-bordered table-condensed table table-striped">
-    <col align="left" bgcolor="#ffffeb">
-    <tr><td>
-      場　所：
-      <% if @event.placelink.present? %>
-        <%= link_to(@event.place, @event.placelink) %>
-      <% else %>
-        <%=@event.place %>
-      <% end %>
-    </td></tr>
-    <tr><td>主催者：<%= usernamereturn(@event.user_id) %></td></tr>
-    <tr><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)　<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>
-    <tr><td><%=raw Rinku.auto_link(simple_format(@event.note, {}, wrapper_tag: "div")) %></td></tr>
-    <% if @event.url.present? %>
-      <tr><td>
-      <% if @event.urlname.blank? %>
-        <% linkname="リンク" %>
-      <% else %>
-        <% linkname=@event.urlname %>
-      <% end %>
-      <%= link_to linkname, @event.url, target: :_blank %>
-      </td></tr>
-    <% end %>
-    <tr><td >参加費：<%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
-    <tr><td>
-      参加者<br>
+■イベント名：<%= @event.title %><br>
+■開催ビル名：
+<% if @event.placelink.present? %>
+  <%= link_to(@event.place, @event.placelink) %>
+<% else %>
+  <%=@event.place %>
+<% end %><br>
+■主　催　者：<%= usernamereturn(@event.user_id) %><br>
+■開催日時　：<%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)　<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %><br>
+■参加費用　：<%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円<br>
+■開催詳細<br><%=raw Rinku.auto_link(simple_format(@event.note, {}, wrapper_tag: "div")) %>
+■参加者<br>
     <% i=0 %>
     <% @sankasha.each do |s| %>
       <%= "#{usernamereturn(s.user_id)}さん　" %>
@@ -72,14 +48,14 @@
       <br>
       <% i=i+1 %>
     <% end %>
-    <%= i %>名　定員<%=@event.capacity %>名　　
+<%= i %>名　定員<%=@event.capacity %>名　　
     <% if possible>0 and @event.held==true and @event.opendate>deadline %>
       <%="残り#{possible}名参加できます" if @event.recruiting==true %>
     <% elsif possible==0 and @event.held==true and @event.opendate>deadline %>
       満席です
     <% end %>
-  </td></tr>
-  <% nokori=@event.capacity-i %>
+<br><br>   
+ <% nokori=@event.capacity-i %>
   <% if @event.held==true %>
     <% if @event.opendate>deadline and nokori>0 and @sanka.empty?  and @event.recruiting==true %> 
      <% title="参加する" %>
@@ -89,13 +65,16 @@
       <% kubun=2 %>
     <% end %>
     <% if kubun.to_i>=1 %>
-      <tr><td colspan="2"><center> 
+      <tr><td colspan="2"> 
       <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-lg",data: { disable_with: '送信中...' }} %>
       </td></tr>
     <% end %>
-  <% end %>
-  <tr>
-  <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
+  <% end %> 
+
+
+<hr>
+■コメント投稿<br>
+<%= form_tag({action: 'commentcreate', method: 'post'}) do %>
     <%= hidden_field_tag :event_id, @event.id %>
     <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "40x2" %><br>
     通知方法<br>
@@ -108,15 +87,16 @@
     <%= submit_tag "送信", class: "btn btn-primary" %>
   <% end %>
   <% if @commentcontent.present? %>
+  <hr>
     <% @commentcontent.each do |f| %>
-      <tr><td> 
       <%= usernamereturn(f.user_id) %>さん　投稿日時：<%=f.created_at.strftime("%Y-%m-%d %H:%M") %><br>
       <%=raw Rinku.auto_link(simple_format(f.content, {}, wrapper_tag: "div")) %>
-      </td></tr>
+      <hr>
     <% end %>
-  <% end %>
-  </table> 
+    
+  <% end %> 
+  <hr>
+<% if @url %>
+  <%= link_to("前のページに戻る",@url) %>
+<% end %><br>
 </div>
-</div>
-</div>
-

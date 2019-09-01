@@ -1,43 +1,83 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><%= full_title(yield(:title)) %></title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                               'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application',
-                               'data-turbolinks-track': 'reload' %>
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-      </script>
-    <![endif]-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <header class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <%= link_to "イベント管理システム", '/events/index', id: "logo" %>
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "新規",   '/events/new' %></li>
-            <li><%= link_to "一覧",   '/events/index' %></li>
-            <li><%= link_to "ログイン", '/' %></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <body bgcolor="#ffffcc">
-    <div class="container">
+</head>
+<title>イベント管理システムル</title>
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="キーワード">
+<meta name="description" content="紹介文">
+<%#= stylesheet_link_tag    'application','magister', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    "pc", :media => "all" %>
+<%= stylesheet_link_tag    "sp", :media => "all" %>
+<link rel="stylesheet" href="css/pc.css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<script src="js/css3-mediaqueries.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+
+<!-- メイン -->
+
+<div id="main">
+
+
+<!-- メイン画像 ここから -->
+<div id="header-img">
+<img src="/head_img.png" alt="head_img" class="main_photo">
+</div>
+
+<!-- メインコンテンツ -->
+
+<div id="container">
+  <div id="contents">
+<div class="container">
       <% flash.each do |name, msg| %>
         <div class="alert alert-<%= name %>">
           <%= msg %>
         </div>
       <% end %>
       <%= yield %>
-    </div>
-    <%= debug(params) if Rails.env.development? %>
-  </body>
-  </body>
+</div>
+
+<!-- メインコンテンツ終わり -->
+
+<!-- サイドエリア -->
+<div class="menulist">
+<ul>
+<li><%= link_to "ログイン",   '/' %></li>
+<li><%= link_to "イベント一覧",   '/events/index' %></li>
+<li><%= link_to "イベント新規登録",   '/events/new' %></li>
+</ul>
+</div>
+<!-- PC向け・非表示 -->
+<!-- 非表示ここまで -->
+
+
+  </div>
+
+<!-- サイドエリア終わり -->
+
+</div>
+
+<!-- コンテンツ終わり -->
+<p></p>
+<!-- フッター -->
+
+<div id="footer">
+Copyright (C) 20xx SITE NAME All Rights Reserved.　design by <a href="http://tempnate.com/" target="_blank">tempnate</a>
+</div>
+
+<!-- フッター終わり -->
+
+</div>
+
+<!-- メイン終わり -->
+
+</body>
 </html>
