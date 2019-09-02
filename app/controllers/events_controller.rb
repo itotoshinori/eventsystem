@@ -23,7 +23,7 @@ class EventsController < ApplicationController
     settingvalue
     if @event.save
       @link=URL+"events/#{@event.id}"
-      @content="新規開催イベント：#{@event.title}"
+      @content="■新規開催イベント："+@event.title+"が登録されました\n■開催日時："+dateweekday(@event.opendate) +"("+weekdate(@event.opendate)+")"+timehyouji(@event.starttime)+"-"
       @user=User.all
       sendmailsys
       flash[:success]="正常に登録され、会員にメールを送りました。"

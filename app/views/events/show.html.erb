@@ -107,7 +107,7 @@
     <% @commentcontent.each do |f| %>
       <%= usernamereturn(f.user_id) %>さん　投稿日時：<%=f.created_at.strftime("%Y-%m-%d %H:%M") %><br>
       <%=raw Rinku.auto_link(simple_format(f.content, {}, wrapper_tag: "div")) %>
-      <hr>
+      <hr class="line">
     <% end %>
     
   <% end %> 
