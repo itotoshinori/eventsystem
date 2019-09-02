@@ -27,7 +27,6 @@ class EventsController < ApplicationController
       @user=User.all
       sendmailsys
       flash[:success]="正常に登録され、会員にメールを送りました。"
-      #redirect_to("/events/index")
       redirect_to "/events/#{@event.id}"
     else
       flash[:warning]="登録に失敗しました"
