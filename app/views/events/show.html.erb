@@ -86,9 +86,7 @@
       </td></tr>
     <% end %>
   <% end %> 
-
-
-<hr>
+<hr class="line">
 ■コメント投稿<br>
 <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
     <%= hidden_field_tag :event_id, @event.id %>
@@ -103,15 +101,14 @@
     <%= submit_tag "送信", class: "btn btn-primary" %>
   <% end %>
   <% if @commentcontent.present? %>
-  <hr>
+  <hr class="line">
     <% @commentcontent.each do |f| %>
       <%= usernamereturn(f.user_id) %>さん　投稿日時：<%=f.created_at.strftime("%Y-%m-%d %H:%M") %><br>
       <%=raw Rinku.auto_link(simple_format(f.content, {}, wrapper_tag: "div")) %>
       <hr class="line">
     <% end %>
-    
   <% end %> 
-  <hr>
+  <hr class="line">
 <% if @url %>
   <%= link_to("前のページに戻る",@url) %>
 <% end %><br>
