@@ -1,0 +1,107 @@
+<% provide(:title, "詳細") %>
+
+<div class="col-md-6 col-md-offset-3">
+<% now = Time.current %>
+<% session[:geturl2]=@url %>
+<center>
+<h3 class="lead">イベントの詳細</h3>
+<% if current_user.id==@event.user_id %>
+    <center><%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %></center>
+<% end %>
+<p>
+<% possible=@event.capacity-@event.participants.count %>
+<% if @event.held==false %>
+  <div class="kakomi-maru2">このイベントは中止になりました</div><br>
+<% end %></p>
+<% if @event.recruiting==false %>
+  <p>このイベントの募集は終了しました</p>
+<% end %>
+<% if @url %>
+  <%= link_to("前のページに戻る",@url) %>
+  <br>
+<% end %>
+</center>
+
+<table border="1" class="table-bordered table-condensed table table-striped">
+  <col width="80" align="left" bgcolor="#ffffeb">
+  <col width="200" align="left" bgcolor="#ffffeb">
+  <tr><td>タイトル</td><td><%= @event.title %></td></tr>
+  <tr><td>主催者</td><td ><%= usernamereturn(@event.user_id) %></td></tr>
+  <tr><td>開始日時</td><td><%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %></td></tr>　
+  <tr><td>開催場所</td>
+  <td >
+  <% if @event.placelink.present? %>
+    <%= link_to(@event.place, @event.placelink) %>
+  <% else %>
+    <%=@event.place %>
+  <% end %>
+  </td></tr>
+  <tr><td >詳細</td></td><td><%=raw Rinku.auto_link(simple_format(@event.note)) %></td></tr>
+  <tr><td>参加費</td></td><td ><%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円</td></tr>
+  <tr><td>定員</td></td><td ><%=@event.capacity %>名</td></tr>
+  <tr><td>参加者</td></td>
+  <td >
+    <% i=0 %>
+    <% @sankasha.each do |s| %>
+      <%= "#{usernamereturn(s.user_id)}さん　" %>
+      <%= @event_id %>
+      <% if current_user.id==@event.user_id and @event.money>0 %>
+        <% if s.moneycollection==false %>
+          <%= link_to "集金", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"1"}, {method: :post} %>
+        <% else %>
+          <%= link_to "集金済", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"2"}, {method: :post} %>
+        <% end %>
+      <% end %>
+      <% if current_user.id==@event.user_id %>
+        <% if s.attendance==false %>
+          <%= link_to "出席", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"3"}, {method: :post} %>
+        <% else %>
+          <%= link_to "出席済", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"4"}, {method: :post} %>
+        <% end %>
+      <% end %>
+      <br>
+      <% i=i+1 %>
+    <% end %>
+    <%= i %>名　　
+    <% if possible>0 and @event.held==true and @event.opendate>now %>
+      <%="残り#{possible}名参加できます" if @event.recruiting==true %>
+    <% elsif possible==0 and @event.held==true and @event.opendate>now %>
+      満席です
+    <% end %>
+  </td></tr>
+  <% nokori=@event.capacity-i %>
+  <% if @event.held==true %>
+    <% if @event.opendate>now and nokori>0 and @sanka.empty?  and @event.recruiting==true %> 
+     <% title="参加" %>
+     <% kubun=1 %>
+    <% elsif @event.opendate>now and  @sanka.present? %>
+      <% title="取消" %>
+      <% kubun=2 %>
+    <% end %>
+    <% if kubun.to_i>=1 %>
+      <tr><td colspan="2"><center>
+      <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-primary"} %>
+      </td></tr>
+    <% end %>
+  <% end %></center>
+  <tr>
+  
+  <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
+    <td rowspan=<%=@commentcontent.count+1 %> >コメント</td>
+    <%= hidden_field_tag :event_id, @event.id %>
+    <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "55x2" %><br>
+    <%= submit_tag "送信", class: "btn btn-primary" %>
+  <% end %>
+  <% if @commentcontent.present? %>
+    <% @commentcontent.each do |f| %>
+      <tr><td> 
+      <%= usernamereturn(f.user_id) %>さん　投稿日時：<%=f.created_at.strftime("%Y-%m-%d %H:%M") %><br>
+      <%= simple_format h f.content %>
+      </td></tr>
+    <% end %>
+  <% end %>
+  </td>
+  </tr>
+  </table>
+</div>
+

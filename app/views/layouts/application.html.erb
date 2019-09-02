@@ -7,13 +7,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title><%= full_title(yield(:title)) %></title>
 </head>
-<title>イベント管理システムル</title>
+<title>イベント管理システム</title>
 <meta name="viewport" content="width=device-width">
 <meta name="keywords" content="キーワード">
 <meta name="description" content="紹介文">
 <%#= stylesheet_link_tag    'application','magister', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= stylesheet_link_tag    "pc", :media => "all" %>
-<link rel="stylesheet" href="css/pc.css">
+<link rel="stylesheet" href="pc.css">
 <!--[if lt IE 9]>
 <script src="js/html5.js"></script>
 <script src="js/css3-mediaqueries.js"></script>
@@ -38,7 +38,6 @@
 <div id="container">
   <div id="contents">
 <div class="container">
-  <h3>イベント管理システム</h3>
       <% flash.each do |name, msg| %>
         <div class="alert alert-<%= name %>">
           <%= msg %>

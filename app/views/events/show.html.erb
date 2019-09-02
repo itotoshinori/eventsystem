@@ -3,14 +3,28 @@
 <% now = Time.current %> 
 <% deadline = now.yesterday %>
 <% session[:geturl2]=@url %>
+<head>
+<%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                               'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application',
+                               'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
 <title>イベント詳細</title>
-<h2>イベント詳細</h2>
+<h3>イベント詳細</h3>
 <% if current_user.id==@event.user_id %>
-   <%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit",class: "btn btn-primary" %>
+   <%= link_to "再告知・修正","/events/#{@event.id.to_s}/edit" %>
 <% end %>
 <% possible=@event.capacity-@event.participants.count %>
 <% if @event.held==false %>
-  <div class="kakomi-maru2">このイベントは中止になりました</div><br>
+  <h4>このイベントは中止になりました</h4><br>
 <% end %></p>
 <% if @event.recruiting==false %>
   <p><h4><b>このイベントの募集は終了しました</b></h4></p>
@@ -27,6 +41,7 @@
 ■参加費用　：<%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円<br>
 ■開催詳細<br><%=raw Rinku.auto_link(simple_format(@event.note, {}, wrapper_tag: "div")) %>
 ■参加者<br>
+      参加者<br>
     <% i=0 %>
     <% @sankasha.each do |s| %>
       <%= "#{usernamereturn(s.user_id)}さん　" %>
@@ -45,6 +60,7 @@
           <%= link_to "出席済", {controller: 'events', action: 'moneycollection',id:s.id,url:@url,event_id:s.event_id,kubun:"4"}, {method: :post} %>
         <% end %>
       <% end %>
+    
       <br>
       <% i=i+1 %>
     <% end %>
@@ -66,7 +82,7 @@
     <% end %>
     <% if kubun.to_i>=1 %>
       <tr><td colspan="2"> 
-      <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post, class: "btn btn-lg",data: { disable_with: '送信中...' }} %>
+      <%= button_to title, {controller: 'events', action: 'attendance',id:@event.id,kubun:kubun,url:@url}, {method: :post,data: { disable_with: '送信中...' }} %>
       </td></tr>
     <% end %>
   <% end %> 
