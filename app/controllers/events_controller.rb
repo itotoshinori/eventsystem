@@ -70,7 +70,7 @@ class EventsController < ApplicationController
     settingvalue
     session[:geturl]=session[:geturl2]
     session.delete(:geturl2)
-    sendmail=event_params[:sendmail] 
+    sendmail=event_params[:sendmailmethod] 
     title= @event.title
     @link=URL+"events/#{@event.id}"
     if params[:commit] == "中止"
