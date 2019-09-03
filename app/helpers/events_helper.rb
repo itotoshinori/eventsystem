@@ -6,7 +6,7 @@ module EventsHelper
             if d.month<10
                 mon="0"+d.month.to_s
             else
-                mon="0"+d.month.to_s
+                mon=d.month.to_s
             end
             if d.day<10
                 date="0"+d.day.to_s
