@@ -125,7 +125,7 @@ class EventsController < ApplicationController
       @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
-      flash[:success]="正常に参加登録され主催者にメールにて通知されました"
+      flash[:success]="正常に参加登録され、主催者にメールにて通知されました"
     elsif @kubun=="2"
       if possiblecount==0
         status="full"
@@ -136,7 +136,7 @@ class EventsController < ApplicationController
       @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
-      flash[:success]="キャンセルされ主催者にメールにて通知されました"
+      flash[:success]="キャンセル登録され、主催者にメールにて通知されました"
       if status=="full"
         @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
         @user=User.all
