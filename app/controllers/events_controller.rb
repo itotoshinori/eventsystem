@@ -70,7 +70,7 @@ class EventsController < ApplicationController
     settingvalue
     session[:geturl]=session[:geturl2]
     session.delete(:geturl2)
-    sendmail=event_params[:sendmail] 
+    sendmail=event_params[:sendmailmethod] 
     title= @event.title
     @link=URL+"events/#{@event.id}"
     if params[:commit] == "中止"
@@ -125,7 +125,7 @@ class EventsController < ApplicationController
       @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
-      flash[:success]="正常に参加登録されました"
+      flash[:success]="正常に参加登録され、主催者にメールにて通知されました"
     elsif @kubun=="2"
       if possiblecount==0
         status="full"
@@ -136,7 +136,7 @@ class EventsController < ApplicationController
       @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
-      flash[:success]="キャンセルされました。またのご利用をお願いします。"
+      flash[:success]="キャンセル登録され、主催者にメールにて通知されました"
       if status=="full"
         @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
         @user=User.all
