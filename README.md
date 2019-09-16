@@ -1,24 +1,29 @@
-# README
+お疲れ様です。伊藤利典です。
+動画取り直しましたので、ご多忙の中恐縮ですが再度レビューの程お願い致します。
+久保さん、藏藤さんにOK頂きました。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+■指摘事項
+・動画での説明する話は面談で受け答えする時と同じように話してください。→心がけて話ました
+・クロームのブックマックバーとURLは動画に入らないようにしてください。→修正しました
+・2倍の速度で話してください。→二つの動画で１０分３０秒だったものを６分７秒に短縮できました
+・動画を分割しないで一つにしてください。→１本にしました
 
-Things you may want to cover:
 
-* Ruby version
+イベント管理システム
+ネット上でイベントの登録ができ、自動的にメールにて通知できるシステムです。
 
-* System dependencies
+イベント管理システム説明動画
+https://www.youtube.com/watch?v=VzEf8YfOe80&feature=youtu.be  プレビュー
 
-* Configuration
+git hub
+https://github.com/itotoshinori/eventsystem
 
-* Database creation
+URL
+https://enigmatic-lowlands-69028.herokuapp.com/
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+サンプルユーザー
+メール
+xgppm340@ybb.ne.jp
+パスワード
+foobar
+※サンプルユーザーでの参加登録も可能ですが、よろしければfacebook認証で会員登録で確認頂けるとありがたいです。メールでの通知も見ることができます。
