@@ -82,7 +82,7 @@ body {
   float: left;
 }
 
-#h_logo h2 {
+#h_logo h3 {
   margin: 0;
   padding: 50px 0 0 16px;  /*-- logo 位置 --*/
   text-align: left;
@@ -278,7 +278,7 @@ body {
   font-size: 15px;
 }
 
-#contents h2 {
+#contents h3 {
   height: 43px;
   margin: 0 0 10px 0;
   padding: 14px 0 0 40px;
@@ -288,7 +288,7 @@ body {
   background-repeat: no-repeat;
 }
 
-#contents h2.page_title {
+#contents h3.page_title {
   margin: 0 0 18px 0;
   padding: 18px 0 4px 30px;
   line-height: 1.7;
@@ -299,7 +299,7 @@ body {
   background-repeat: no-repeat;
 }
 
-#contents h2.txt {
+#contents h3.txt {
   height: auto;
   margin: 0 0 7px 0;
   padding: 0;
@@ -309,7 +309,7 @@ body {
   background: none;
 }
 
-#contents h3 {
+#contents h4 {
   margin: 12px 3px 10px 3px;
   padding: 15px 10px 10px 18px;
   line-height: 1.4;
@@ -322,7 +322,7 @@ body {
   background-color: #f9f2d5;
 }
 
-#contents h3.beta {
+#contents h4.beta {
   margin: 12px 2px 10px 2px;
   padding: 14px 10px 12px 16px;
   line-height: 1.4;
@@ -333,7 +333,7 @@ body {
   background-repeat: no-repeat;
 }
 
-#contents h3.point {
+#contents h4.point {
   margin: 10px 0 10px 0;
   padding: 10px 10px 8px 10px;
   line-height: 1.4;
@@ -347,7 +347,7 @@ body {
   background-repeat: repeat-x;
 }
 
-#contents h3.gold {
+#contents h4.gold {
   height: 41px;
   margin: 12px 2px 10px 2px;
   padding: 14px 10px 0 18px;
@@ -360,7 +360,7 @@ body {
   background-repeat: no-repeat;
 }
 
-#contents h3.gold02 {
+#contents h4.gold02 {
   height: 71px;
   margin: 12px 2px 10px 2px;
   padding: 14px 2px 0 18px;
@@ -373,7 +373,7 @@ body {
   background-repeat: no-repeat;
 }
 
-#contents h3.gray {
+#contents h4.gray {
   height: 41px;
   margin: 12px 2px 10px 2px;
   padding: 14px 10px 0 18px;
@@ -386,7 +386,7 @@ body {
   background-repeat: no-repeat;
 }
 
-#contents h3.gray02 {
+#contents h4.gray02 {
   height: 71px;
   margin: 12px 2px 10px 2px;
   padding: 14px 2px 0 18px;
@@ -503,7 +503,7 @@ td.table_line {
   text-align: left;
 }
 
-.menulist h2 {
+.menulist h3 {
   height: 27px;
   margin: 0;
   padding: 12px 0 5px 14px;
@@ -562,7 +562,7 @@ td.table_line {
   background-image: url(../menu_back.gif);
 }
 
-.menu_free h2 {
+.menu_free h3 {
   height: 27px;
   margin: 0;
   padding: 12px 0 5px 14px;

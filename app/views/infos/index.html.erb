@@ -68,8 +68,8 @@ $(function(){
   <%= link_to "退会する", "withdraw/taikai",data: { confirm: "本当に退会しますか？" } %>
   </div>
 <% else %>
-<h3>イベント管理システムへようこそ！<br>
-ログインしてイベントに参加しましょう！</h3>
+<h3>イベント管理システムへようこそ！</h3>
+ログインしてイベントに参加しましょう！
   <P><%=link_to "Facebook認証でログイン", "/users/auth/facebook" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "ログインはこちらから", "/users/sign_in" ,class: "btn btn-default btn-lg　w-40" %></P>
   <P><%=link_to "新規登録はこちらから", "/users/sign_up" ,class: "btn btn-default btn-lg　w-40" %></P>
