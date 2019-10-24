@@ -29,17 +29,31 @@
 <% if @event.recruiting==false %>
   <p><h4><b>このイベントの募集は終了しました</b></h4></p>
 <% end %>
-■イベント名：<%= @event.title %><br>
+<table>
+<tr><td>
+■イベント名：<%= @event.title %>
+</td></tr>
+<tr><td>
 ■開催ビル名：
 <% if @event.placelink.present? %>
   <%= link_to(@event.place, @event.placelink) %>
 <% else %>
   <%=@event.place %>
 <% end %><br>
+</td></tr>
+<tr><td>
 ■主　催　者：<%= usernamereturn(@event.user_id) %><br>
+</td></tr>
+<tr><td>
 ■開催日時　：<%=dateweekday(@event.opendate) %>(<%=weekdate(@event.opendate) %>)　<%=timehyouji(@event.starttime) %>-<%=timehyouji(@event.finishtime) %><br>
+</td></tr>
+<tr><td>
 ■参加費用　：<%=@event.money.to_s.reverse.gsub( /(\d{3})(?=\d)/, '\1,').reverse %>円<br>
+</td></tr>
+<tr><td  width="610">
 ■開催詳細<br><%=raw Rinku.auto_link(simple_format(@event.note, {}, wrapper_tag: "div")) %>
+</td></tr>
+<tr><td>
 ■参加者<br>
       参加者<br>
     <% i=0 %>
@@ -86,16 +100,14 @@
       </td></tr>
     <% end %>
   <% end %> 
+</table>
 <hr class="line">
 ■コメント投稿<br>
 <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
     <%= hidden_field_tag :event_id, @event.id %>
     <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "40x2" %><br>
     通知方法<br>
-    <%#= f.collection_select :opendate, @dates, :id, :dateweek, :selected=>@sdate,class: 'form-control' %>
-    <%#= collection_select:sendmail,@pts, :id, :name %>
-     <%#= collection_select(:chrt, :id_eki, @eki, :id_eki, :name,{},{class: "form-control"}) %>
-     <%#= f.collection_select :prefecture_id, Prefecture.all, :id, :name %>
+  
     <%= collection_select(:sendmail,:id,@pts,:id, :name) %>
       <%#= select_tag 'sendmail', options_for_select({主催者にメールを送る: 1, 登録のみ: 2, 参加者全員にメールを送る: 3}, 1) %><br>
     <%= submit_tag "送信", class: "btn btn-primary" %>
@@ -104,8 +116,12 @@
   <hr class="line">
     <% @commentcontent.each do |f| %>
       <%= usernamereturn(f.user_id) %>さん　投稿日時：<%=f.created_at.strftime("%Y-%m-%d %H:%M") %><br>
+      <table>
+        <tr><td width="610">
       <%=raw Rinku.auto_link(simple_format(f.content, {}, wrapper_tag: "div")) %>
       <hr class="line">
+      </td></tr>
+      </table>
     <% end %>
   <% end %> 
   <hr class="line">
