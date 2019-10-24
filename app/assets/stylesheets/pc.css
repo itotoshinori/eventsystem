@@ -286,6 +286,7 @@ body {
   color: #54351f;
   background-image: url(../titlebar.gif);
   background-repeat: no-repeat;
+  width: 650px;
 }
 
 #contents h3.page_title {
