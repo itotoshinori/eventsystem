@@ -53,11 +53,11 @@
 <div id="container">
   <div id="contents">
 <div class="container">
+      <div style="color:blue;">
       <% flash.each do |name, msg| %>
-        <div class="alert alert-<%= name %>">
           <%= msg %>
-        </div>
       <% end %>
+      </div>
       <%= yield %>
 </div>
 

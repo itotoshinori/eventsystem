@@ -235,7 +235,7 @@ body {
 #header-img {
   width: 100%;
   margin: 12px 0 12px 0;
-  text-align: center;
+  text-align:center;
 }
 
 .main_photo {
@@ -250,7 +250,7 @@ body {
   width: 900px;
   margin: 0 auto 0 auto;
   overflow: hidden;
-  padding: 6px 0 0 0;
+  padding: 8px 0 0 0;
   background-color: #ffffff;
 }
 

@@ -220,7 +220,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails (~> 4.17.37)
   byebug (= 9.0.6)
   coffee-rails (= 4.2.2)
-  devise (>= 4.7.1)
+  devise
   devise-i18n
   devise-i18n-views
   dotenv-rails
