@@ -109,7 +109,7 @@
     通知方法<br>
   
     <%= collection_select(:sendmail,:id,@pts,:id, :name) %>
-      <%#= select_tag 'sendmail', options_for_select({主催者にメールを送る: 1, 登録のみ: 2, 参加者全員にメールを送る: 3}, 1) %><br>
+    <br>
     <%= submit_tag "送信", class: "btn btn-primary" %>
   <% end %>
   <% if @commentcontent.present? %>

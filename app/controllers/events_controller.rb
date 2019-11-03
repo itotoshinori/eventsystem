@@ -26,7 +26,7 @@ class EventsController < ApplicationController
       @content="■新規開催イベント：#{@event.title}が登録されました。参加のご検討を願います。"
       @user=User.all
       sendmailsys
-      flash[:success]="正常に登録され、会員にメールを送りました。"
+      flash[:success]="正常に登録され、会員にメールを送りました"
       redirect_to "/events/#{@event.id}"
     else
       flash[:warning]="登録に失敗しました"
@@ -82,7 +82,7 @@ class EventsController < ApplicationController
       @event.recruiting=false
       @event.update(event_params)
       #@link=URL+"events/#{@event.id}"
-      @content="開催イベント：#{@event.title}が編集され募集が終了しました。"
+      @content="開催イベント：#{@event.title}が編集され募集が終了しました"
       flash[:success]="イベントの変更処理及び募集停止しました"
     elsif params[:commit] == "編集＋募集再開"
       @event.recruiting=true
@@ -101,11 +101,11 @@ class EventsController < ApplicationController
     if sendmail=="3"
       @user=User.all
       sendmailsys
-      flash[:warning]="会員全員にメールを送りました。"
+      flash[:warning]="会員全員にメールを送りました"
     elsif sendmail=="1"
       @user=Participant.joins(:user).where(event_id:@event.id)
       sendmailsys2
-      flash[:warning]="参加者にメールを送りました。"
+      flash[:warning]="参加者にメールを送りました"
     end
     redirect_to("/events/#{@event.id}")
   end
@@ -143,7 +143,7 @@ class EventsController < ApplicationController
         sendmailsys
       end
     else
-      flash[:warning]="登録失敗しました"
+      flash[:warning]="登録に失敗しました"
     end
     session[:geturl]=url
     redirect_to("/events/#{@event.id}")
@@ -172,7 +172,7 @@ class EventsController < ApplicationController
         elsif sendmail=="c"
           @user=Participant.joins(:user).where(event_id:event.id)
           sendmailsys2
-          flash[:success]="コメントが投稿され、通知メールを参加者に送りました。"
+          flash[:success]="コメントが投稿され、通知メールを参加者に送りました"
         elsif sendmail!="b"
           @user=User.where(id:sendmail)
           sendmailsys
