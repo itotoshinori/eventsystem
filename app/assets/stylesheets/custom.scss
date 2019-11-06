@@ -29,13 +29,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
-h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
 h2 {
   font-size: 1.2em;
   letter-spacing: -1px;
@@ -150,18 +143,10 @@ body{background-color:#F0F0F0;}
   font-size: 18px; 
 }
 h1 {
-  position: relative;
-  padding: .25em 0 .5em .75em;
-  border-left: 6px solid #3498db;
-  font-size: 20px; 
-   text-align: left;
-}
-h1::after {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  content: '';
-  width: 100%;
-  height: 0;
-  border-bottom: 1px solid #ccc;
+ color: #364e96;/*文字色*/
+  border: solid 3px #364e96;/*線色*/
+  padding: 0.5em;/*文字周りの余白*/
+  border-radius: 0.5em;/*角丸*/
+  font-size: 18px;
+   white-space: nowrap;
 }
