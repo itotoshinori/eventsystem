@@ -102,7 +102,9 @@ p {
 background: #BCE1DF;
 /*background-color:none !important;*/
 }
-
+textarea {
+    overflow: auto;
+}
 body{background-color:#F0F0F0;}
 
 .btn-flat-stripe {
