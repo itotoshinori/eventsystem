@@ -16,17 +16,12 @@
     <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
-    
-    
-    
-    
     <title><%= full_title(yield(:title)) %></title>
 </head>
 <title>イベント管理システム</title>
 <meta name="viewport" content="width=device-width">
 <meta name="keywords" content="キーワード">
 <meta name="description" content="紹介文">
-<%#= stylesheet_link_tag    'application','magister', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= stylesheet_link_tag    "pc", :media => "all" %>
 <link rel="stylesheet" href="pc.css">
 <!--[if lt IE 9]>
@@ -46,12 +41,13 @@
 <!-- メイン画像 ここから -->
 <div id="header-img">
 <img src="/head_img.png" alt="head_img" class="main_photo">
+
 </div>
 
 <!-- メインコンテンツ -->
 
 <div id="container">
-  <div id="contents">
+ <div id="contents">
 <div class="container">
       <div style="color:blue;">
       <% flash.each do |name, msg| %>
