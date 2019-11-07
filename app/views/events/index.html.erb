@@ -4,9 +4,13 @@
 <%= link_to "これから","/events/index",class:"btn btn-info" %>
 <%= link_to "過去","/events/indexpast",class:"btn btn-info" %>
 <%= link_to "中止","/events/indexcancel",class:"btn btn-info" %>
-<h4 class="h4long">これからのイベント一覧</h4>
-<%= render partial: "index" %>
-<%= will_paginate @event, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<h4 class="h4">これからのイベント一覧</h4>
+<% if @event.present? %>
+    <%= render partial: "index" %>
+    <%= will_paginate @event, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<% else %>
+現在該当のイベントはありません
+<% end %>
 </div>
 
 
