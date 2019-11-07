@@ -1478,12 +1478,15 @@ body {
 /*---------- メイン画像 ----------*/
 
 #header-img {
-  width: 10%;
-  height: 10%;
-  margin: 0 0 0px 0;
+  width: 100%;
+  height: auto;
+  margin: 0 0 6px 0;
 }
 
 .main_photo {
+  width: 30%;
+  height: auto;
+  display: none;
   /*display: block;*/
   margin: 0 auto 0 auto;
 }
