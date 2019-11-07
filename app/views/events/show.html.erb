@@ -105,7 +105,7 @@
 ■コメント投稿<br>
 <%= form_tag({action: 'commentcreate', method: 'post'}) do %>
     <%= hidden_field_tag :event_id, @event.id %>
-    <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "40x2" %><br>
+    <td><%= text_area_tag :comment,nil, placeholder: "メッセージ", class:"", size: "30x2" %><br>
     通知方法<br>
   
     <%= collection_select(:sendmail,:id,@pts,:id, :name) %>
