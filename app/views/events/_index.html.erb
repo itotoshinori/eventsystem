@@ -3,18 +3,28 @@
     
     <% @event.each do |f| %>
       <% suu=f.participants.count %>
+      <table>
       <tr align="left">
-      <td align="left">
-      ■イベント名：<%= link_to(mojiseigen(f.title,30), event_path(f.id)) %><br>
-      ■開始日時　：<%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)<%=timehyouji(f.starttime) %>-<br>
-      ■開催場所　：<%=mojiseigen(f.place,30) %><br>
-      ■参加人数　：参加<%=suu %>名/募集<%=f.capacity %>名
+      <td align="left">■イベント名：</td>
+      <td align="left"><%= link_to(mojiseigen(f.title,30), event_path(f.id)) %></td></tr>
+      <tr align="left"> 
+      <td align="left">■開始日時　：</td>
+      <td align="left"><%=dateweekday(f.opendate) %>(<%=weekdate(f.opendate) %>)<%=timehyouji(f.starttime) %>-</td>
+      </tr>
+      <tr align="left"> 
+      <td align="left"> ■開催場所　：</td>
+      <td align="left"><%=mojiseigen(f.place,30) %></td>
+      </tr>
+      <tr align="left"> 
+      <td align="left">■参加人数　：</td>
+      <td align="left">参加<%=suu %>名/募集<%=f.capacity %>名
       <%if Participant.find_by(user_id:current_user.id,event_id:f.id).present? %>
-        参加登録済
+          登録済
       <% end %>
-      <hr class="line">
       </td>
       </tr>
+      </table>
+      <hr class="line">
     <% end %>
     <% else %>
       <div class="kakomi-maru2">対象のイベントはありません</div>
