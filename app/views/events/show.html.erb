@@ -75,7 +75,7 @@
       <br>
       <% i=i+1 %>
     <% end %>
-    <%= i %>名　定員<%=@event.capacity %>名　　
+    <%= i %>名　定員<%=@event.capacity %>名
     <% if possible>0 and @event.held==true and @event.opendate>deadline %>
       <%="残り#{possible}名参加できます" if @event.recruiting==true %>
     <% elsif possible==0 and @event.held==true and @event.opendate>deadline %>
