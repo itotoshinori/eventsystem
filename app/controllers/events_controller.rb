@@ -156,7 +156,8 @@ class EventsController < ApplicationController
     sendmail=hash["id"]
     @event = Event.find(@event_id)
     @event_id=@event.id
-    @user_id=current_user.id
+    @user=current_user
+    @user_id=@user.id
     possiblecount=@event.capacity-@event.participants.count
     flashplus=""  
     if params[:commit] == "投稿+参加登録"
@@ -179,9 +180,8 @@ class EventsController < ApplicationController
     if comment.present?
       commentn=Comment.new(content:comment,user_id:@user_id,event_id:@event_id)
       commentn.save
-      event=Event.find(@event_id)
       @link=URL+"events/#{@event_id}"
-        @content="開催イベント：#{@event.title}に#{flashplus}投稿がありました"
+        @content="開催イベント：#{@event.title}に#{@user.name}さんから#{flashplus}投稿がありました"
         if sendmail=="a"
           @user=User.where(id:@event.user_id)
           sendmailsys
