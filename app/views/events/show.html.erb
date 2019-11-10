@@ -109,9 +109,9 @@
     <br>
     <%= submit_tag "投稿", class: "btn btn-primary" %>
     <% if @event.opendate>deadline and nokori>0 and @sanka.empty?  and @event.recruiting==true %>
-      <%= submit_tag "投稿+参加登録", class: "btn btn-primary" %>
+      <%= submit_tag "投稿+参加登録", class: "btn btn-primary",data: { disable_with: '送信中...' } %>
     <% else %>
-      <%= submit_tag "投稿+参加取消", class: "btn btn-primary" %>
+      <%= submit_tag "投稿+参加取消", class: "btn btn-primary",data: { disable_with: '送信中...' } %>
     <% end %>
   <% end %>
   <% if @commentcontent.present? %>
