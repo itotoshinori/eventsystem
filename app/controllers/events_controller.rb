@@ -159,46 +159,48 @@ class EventsController < ApplicationController
     @user=current_user
     @user_id=@user.id
     possiblecount=@event.capacity-@event.participants.count
-    flashplus=""  
-    if params[:commit] == "投稿+参加登録"
-      if possiblecount==0
-        flashplus="満席で参加不可です。"
-      else
-        sankatouroku
-        flashplus="参加登録と"
+    flashplus=""
+    if comment.blank?
+      flash[:warning]="登録に失敗しました。メッセージが入力されていません。"
+    else
+      if params[:commit] == "投稿+参加登録"
+        if possiblecount==0
+          flashplus="満席で参加不可です。"
+        else
+          sankatouroku
+          flashplus="参加登録と"
+        end
       end
-    end
-    if params[:commit] == "投稿+参加取消"
-      if possiblecount==0
-        @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
-        @user=User.all
-        sendmailsys
+      if params[:commit] == "投稿+参加取消"
+        if possiblecount==0
+          @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
+          @user=User.all
+          sendmailsys
+        end
+        sankatorikesi
+        flashplus="参加取消と"
       end
-      sankatorikesi
-      flashplus="参加取消と"
-    end
-    if comment.present?
-      commentn=Comment.new(content:comment,user_id:@user_id,event_id:@event_id)
-      commentn.save
-      @link=URL+"events/#{@event_id}"
+      if comment.present?
+        commentn=Comment.new(content:comment,user_id:@user_id,event_id:@event_id)
+        commentn.save
+        @link=URL+"events/#{@event_id}"
         @content="開催イベント：#{@event.title}に#{@user.name}さんから#{flashplus}投稿がありました"
-        if sendmail=="a"
-          @user=User.where(id:@event.user_id)
-          sendmailsys
-          flash[:success]="#{flashplus}コメントが投稿され、通知メールを主催者に送りました。"
-        elsif sendmail=="c"
-          @user=Participant.joins(:user).where(event_id:@event.id)
-          sendmailsys2
-          flash[:success]="#{flashplus}コメントが投稿され、通知メールを参加者に送りました"
-        elsif sendmail!="b"
-          @user=User.where(id:sendmail)
-          sendmailsys
-          flash[:success]="#{flashplus}コメントが投稿され、通知メールを#{usernamereturn(sendmail)}さんに送りました。"
+          if sendmail=="a"
+            @user=User.where(id:@event.user_id)
+            sendmailsys
+            flash[:success]="#{flashplus}コメントが投稿され、通知メールを主催者に送りました。"
+          elsif sendmail=="c"
+            @user=Participant.joins(:user).where(event_id:@event.id)
+            sendmailsys2
+            flash[:success]="#{flashplus}コメントが投稿され、通知メールを参加者に送りました"
+          elsif sendmail!="b"
+            @user=User.where(id:sendmail)
+            sendmailsys
+            flash[:success]="#{flashplus}コメントが投稿され、通知メールを#{usernamereturn(sendmail)}さんに送りました。"
         else
           flash[:success]="#{flashplus}コメントが投稿されました"
         end
-    else
-      flash[:warning]="コメント投稿に失敗しました。メッセージが入力されていません。"
+      end
     end
     redirect_to("/events/#{@event_id}")
   end
