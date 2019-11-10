@@ -112,17 +112,16 @@ class EventsController < ApplicationController
   
   def attendance
     @event = Event.find(params[:id])
+    @event_id=@event.id
     @kubun=params[:kubun]
     url=params[:url]
-    user_id=current_user.id
+    @user_id=current_user.id
     possiblecount=@event.capacity-@event.participants.count
     if possiblecount==0 and @kubun=="1"
       flash[:warning]="申し訳けございません。すでに満席で参加登録できません"
-    elsif @kubun=="1" and Participant.find_by(user_id:user_id,event_id:@event.id).blank?
-      sanka=Participant.new(user_id:user_id,event_id:@event.id)
-      sanka.save
-      @link=URL+"events/#{sanka.event_id}"
-      @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんが参加登録されました"
+    elsif @kubun=="1" and Participant.find_by(user_id:@user_id,event_id:@event.id).blank?
+      sankatouroku
+      @content="開催イベント：#{@event.title}に#{usernamereturn(@user_id)}さんが参加登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
       flash[:success]="正常に参加登録され、主催者にメールにて通知されました"
@@ -130,10 +129,8 @@ class EventsController < ApplicationController
       if possiblecount==0
         status="full"
       end
-      sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: current_user.id)
-      @link=URL+"events/#{sanka.event_id}"
-      sanka.destroy
-      @content="開催イベント：#{@event.title}に#{usernamereturn(user_id)}さんがキャンセル登録されました"
+      sankatorikesi
+      @content="開催イベント：#{@event.title}に#{usernamereturn(@user_id)}さんがキャンセル登録されました"
       @user=User.where(id:@event.user_id)
       sendmailsys
       flash[:success]="キャンセル登録され、主催者にメールにて通知されました"
@@ -154,36 +151,56 @@ class EventsController < ApplicationController
     session[:geturl]=session[:geturl2]
     session.delete(:geturl2)
     comment=params[:comment]
-    event_id=params[:event_id]
+    @event_id=params[:event_id]
     hash=params[:sendmail]
     sendmail=hash["id"]
+    @event = Event.find(@event_id)
+    @event_id=@event.id
+    @user_id=current_user.id
+    possiblecount=@event.capacity-@event.participants.count
+    flashplus=""  
+    if params[:commit] == "投稿+参加登録"
+      if possiblecount==0
+        flashplus="満席で参加不可です。"
+      else
+        sankatouroku
+        flashplus="参加登録と"
+      end
+    end
+    if params[:commit] == "投稿+参加取消"
+      if possiblecount==0
+        @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
+        @user=User.all
+        sendmailsys
+      end
+      sankatorikesi
+      flashplus="参加取消と"
+    end
     if comment.present?
-      user_id=current_user.id
-      commentn=Comment.new(content:comment,user_id:user_id,event_id:event_id)
+      commentn=Comment.new(content:comment,user_id:@user_id,event_id:@event_id)
       commentn.save
-      event=Event.find(event_id)
-      #if current_user.id!=event.user_id && sendmail!="1" 
-      @link=URL+"events/#{event_id}"
-        @content="開催イベント：#{event.title}に投稿がありました"
+      event=Event.find(@event_id)
+      @link=URL+"events/#{@event_id}"
+        @content="開催イベント：#{@event.title}に#{flashplus}投稿がありました"
         if sendmail=="a"
-          @user=User.where(id:event.user_id)
+          @user=User.where(id:@event.user_id)
           sendmailsys
-          flash[:success]="コメントが投稿され、通知メールを主催者に送りました。"
+          flash[:success]="#{flashplus}コメントが投稿され、通知メールを主催者に送りました。"
         elsif sendmail=="c"
-          @user=Participant.joins(:user).where(event_id:event.id)
+          @user=Participant.joins(:user).where(event_id:@event.id)
           sendmailsys2
-          flash[:success]="コメントが投稿され、通知メールを参加者に送りました"
+          flash[:success]="#{flashplus}コメントが投稿され、通知メールを参加者に送りました"
         elsif sendmail!="b"
           @user=User.where(id:sendmail)
           sendmailsys
-          flash[:success]="コメントが投稿され、通知メールを#{usernamereturn(sendmail)}さんに送りました。"
+          flash[:success]="#{flashplus}コメントが投稿され、通知メールを#{usernamereturn(sendmail)}さんに送りました。"
         else
-          flash[:success]="コメントが投稿されました"
+          flash[:success]="#{flashplus}コメントが投稿されました"
         end
     else
       flash[:warning]="コメント投稿に失敗しました。メッセージが入力されていません。"
     end
-    redirect_to("/events/#{event_id}")
+    redirect_to("/events/#{@event_id}")
   end
   def moneycollection
     event_id=params[:event_id]
@@ -260,4 +277,18 @@ class EventsController < ApplicationController
       MailsysMailer.sendmail(@content,@link,u.user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
     end
   end
+  def sankatouroku
+      sanka=Participant.new(user_id:@user_id,event_id:@event.id)
+      sanka.save
+      @link=URL+"events/#{sanka.event_id}"
+  end
+  def sankatorikesi
+      sanka=@participant=Participant.find_by(event_id: @event.id.to_i, user_id: @user_id)
+      @link=URL+"events/#{sanka.event_id}"
+      sanka.destroy
+  end
+  
+  
+  
+  
 end
