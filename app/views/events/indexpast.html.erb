@@ -3,7 +3,7 @@
 <%= link_to "これから","/events/index",class:"btn btn-info" %>
 <%= link_to "過去","/events/indexpast",class:"btn btn-info" %>
 <%= link_to "中止","/events/indexcancel",class:"btn btn-info" %>
-<h4>過去のイベント一覧</h4>
+<h3>過去のイベント一覧</h3>
 <% if @event.present? %>
     <%= render partial: "index" %>
     <%= will_paginate @event, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
