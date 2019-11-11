@@ -107,7 +107,7 @@
   
     <%= collection_select(:sendmail,:id,@pts,:id, :name) %>
     <br>
-    <%= submit_tag "投稿", class: "btn btn-primary" %>
+    <%= submit_tag "投稿", class: "btn btn-primary" ,data: { disable_with: '送信中...' } %>
     <% if @event.held==true %>
     <% if @event.opendate>deadline and nokori>0 and @sanka.empty?  and @event.recruiting==true %>
       <%= submit_tag "投稿+参加登録", class: "btn btn-primary",data: { disable_with: '送信中...' } %>
