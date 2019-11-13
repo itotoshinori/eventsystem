@@ -35,14 +35,14 @@ class EventsController < ApplicationController
   end
 
   def index
-    @event=Event.where('opendate >= ?',nowday).where(held:true).order(opendate: "ASC").paginate(page: params[:page], per_page: 20)
+    @event=Event.where('opendate >= ?',nowday).where(held:true).order(:opendate,:starttime).paginate(page: params[:page], per_page: 10)
   end
   def indexpast
-    @event=Event.where('opendate < ?',nowday).where(held:true).order(opendate: "desc").paginate(page: params[:page], per_page: 20)
+    @event=Event.where('opendate < ?',nowday).where(held:true).order(opendate: "desc").paginate(page: params[:page], per_page: 10)
   end
   
   def indexcancel
-    @event=Event.where(held:false).order(opendate: "desc").paginate(page: params[:page], per_page: 20)
+    @event=Event.where(held:false).order(opendate: "desc").paginate(page: params[:page], per_page: 10)
   end
   def show
     if session[:geturl].present?
