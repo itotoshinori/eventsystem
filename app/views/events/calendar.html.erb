@@ -39,4 +39,12 @@
   <% end %></td></tr>
 <% end %>
 </table>
+<table>
+  <% @datedown=(@first_day-1).beginning_of_month %>
+  <tr>
+  <td><%= button_to"←", {controller: 'events', action: 'calendar'}, {method: :get, params: {lday:@datedown,kubun:"1"}} %></td>
+  <td><div style="padding : 10px ;"><strong><%= nengetu(@first_day) %>分スケジュール</strong></div></td>
+  <% @dateup=(@last_day+1).beginning_of_month %>
+  <td><%= button_to"→", {controller: 'events', action: 'calendar'}, {method: :get, params: {lday:@dateup,kubun:"2"}} %></td>
+  </tr></table>
 </div>
