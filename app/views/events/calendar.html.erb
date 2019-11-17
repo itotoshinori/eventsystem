@@ -35,7 +35,7 @@
     <%if Participant.find_by(user_id:current_user.id,event_id:dayev.id).present? %>
           ○
   <% end %>
-    <%= link_to(mojiseigen(dayev.title,30), event_path(dayev.id)) %><br>
+    <%= link_to(mojiseigen(dayev.title,20), event_path(dayev.id)) %><br>
   <% end %></td></tr>
 <% end %>
 </table>
