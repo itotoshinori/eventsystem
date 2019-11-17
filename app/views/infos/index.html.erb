@@ -43,8 +43,6 @@ $(function(){
     });
 });
 </script>
-
-
 <% if user_signed_in? %>
   <p><%= current_user.name+"さんでログイン中です"%></p>
   <p><%= link_to "イベント一覧表", "events/index",class: "btn-flat-stripe"  %></p>

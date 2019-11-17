@@ -33,7 +33,20 @@ class EventsController < ApplicationController
       render 'new'
     end
   end
-
+  
+  def calendar
+    require 'date'
+    @event=Event.all
+    kubun=params[:kubun]
+    if kubun=="1"
+      @date=params[:lday].to_date
+    elsif kubun=="2"
+      @date=params[:lday].to_date
+    else
+      @date = Date.today
+    end
+  end
+  
   def index
     @event=Event.where('opendate >= ?',nowday).where(held:true).order(:opendate,:starttime).paginate(page: params[:page], per_page: 10)
   end

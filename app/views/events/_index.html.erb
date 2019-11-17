@@ -1,6 +1,6 @@
+ <% require 'date' %>
     <% if @event.count>0 %>
     <% url = request.url %>
-    
     <% @event.each do |f| %>
       <% suu=f.participants.count %>
       <table>
@@ -29,3 +29,4 @@
     <% else %>
       <div class="kakomi-maru2">対象のイベントはありません</div>
     <% end %>
+    <% event=Event.all %>

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   
   get 'withdraw/taikai'
   
+  get '/events/calendar', to: 'events#calendar'
+  
   resources :events
   
   root :to => 'infos#index'

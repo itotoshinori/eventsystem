@@ -1,0 +1,39 @@
+ <% provide(:title, "これから") %>
+  <% @first_day = @date.beginning_of_month %>
+  <% @last_day = @date.end_of_month %>
+  <% today = Date.today %>
+  <table>
+  <% @datedown=(@first_day-1).beginning_of_month %>
+  <tr>
+  <td><%= button_to"←", {controller: 'events', action: 'calendar'}, {method: :get, params: {lday:@datedown,kubun:"1"}} %></td>
+  <td><div style="padding : 10px ;"><strong><%= nengetu(@first_day) %>分スケジュール</strong></div></td>
+  <% @dateup=(@last_day+1).beginning_of_month %>
+  <td><%= button_to"→", {controller: 'events', action: 'calendar'}, {method: :get, params: {lday:@dateup,kubun:"2"}} %></td>
+  </tr></table>
+  <table class="table table-bordered" style="width:600px;">
+<tr><th>月日</th><th>イベント名</th></tr> 
+<% (@first_day..@last_day).each do |day| %>
+<% if day==today %>
+  <tr style="background: #D7EEFF;">
+<% else %>
+  <tr>
+<% end %>
+  <td style="width:150px;">
+  <% if day.wday==0 %>
+    <div style="color: rgb(255,0,0);" >
+  <% elsif day.wday==6 %>
+    <div style="color: blue;" >
+  <% else %>
+    <div>
+  <% end %>
+  <%=monthday(day) %>(<%=weekdate(day) %>)
+  </td>
+<td>
+  <% dayevent=@event.where(opendate:day,held:true).order(:opendate,:starttime) %>
+  <% dayevent.each do |dayev| %>
+    <%=timehyouji(dayev.starttime) %>-
+    <%= link_to(mojiseigen(dayev.title,30), event_path(dayev.id)) %><br>
+  <% end %></td></tr>
+<% end %>
+</table>
+</div>

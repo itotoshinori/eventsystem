@@ -17,6 +17,34 @@ module EventsHelper
         end
         kekka
     end
+    def nengetu(d)
+        if d.present?
+            nen=d.year.to_s
+            if d.month<10
+                mon="0"+d.month.to_s
+            else
+                mon=d.month.to_s
+            end
+            kekka=nen[2,2]+"年"+mon+"月"
+        end
+        kekka
+    end
+    def monthday(d)
+        if d.present?
+            if d.month<10
+                mon="0"+d.month.to_s
+            else
+                mon=d.month.to_s
+            end
+            if d.day<10
+                date="0"+d.day.to_s
+            else
+                date=d.day.to_s
+            end
+            kekka=mon+"月"+date+"日"
+        end
+        kekka
+    end
     
     def weekdate(d)
         if d.present?
