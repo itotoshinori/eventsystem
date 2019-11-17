@@ -662,6 +662,9 @@ td.table_line {
 .menu_btn_under a:hover{
   color: #765c47;
 }
+.wid{
+  width: 50%;
+}
 
 
 /*---------- サイドエリア・トップに戻る ----------*/
@@ -2015,5 +2018,9 @@ td.table_line {
   color: #555555;
   text-decoration: none;
 }
+.wid{
+  width: 90%;
+}
+
 
 }

@@ -10,7 +10,7 @@
   <% @dateup=(@last_day+1).beginning_of_month %>
   <td><%= button_to"→", {controller: 'events', action: 'calendar'}, {method: :get, params: {lday:@dateup,kubun:"2"}} %></td>
   </tr></table>
-  <table class="table table-bordered" style="width:600px;">
+  <table class="table table-bordered wid">
 <tr><th>月日</th><th>イベント名</th></tr> 
 <% (@first_day..@last_day).each do |day| %>
 <% if day==today %>
