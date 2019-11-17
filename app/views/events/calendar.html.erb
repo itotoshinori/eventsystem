@@ -19,7 +19,7 @@
   <tr>
 <% end %>
   <td style="width:150px;">
-  <% if day.wday==0 %>
+  <% if day.wday==0 or holiday(day) %>
     <div style="color: rgb(255,0,0);" >
   <% elsif day.wday==6 %>
     <div style="color: blue;" >

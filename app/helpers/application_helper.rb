@@ -1,6 +1,7 @@
 module ApplicationHelper
   class Datecollection
   attr_accessor :id,:dateweek
+   require 'holiday_japan'
     def initialize(id,dateweek)
       @id=id
       @dateweek=dateweek
@@ -30,5 +31,9 @@ module ApplicationHelper
       end
       kekka
     end
+  end
+  def holiday(d)
+    kekka=HolidayJapan.check(Date.new(d.year,d.month,d.day))
+    kekka
   end
 end

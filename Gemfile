@@ -19,6 +19,7 @@ gem 'devise-i18n-views'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
+gem 'holiday_japan'
 group :development, :test do
   gem 'sqlite3',      '1.3.13'
   gem 'byebug', '9.0.6', platform: :mri
