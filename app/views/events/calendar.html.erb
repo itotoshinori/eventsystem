@@ -31,7 +31,10 @@
 <td>
   <% dayevent=@event.where(opendate:day,held:true).order(:opendate,:starttime) %>
   <% dayevent.each do |dayev| %>
-    <%=timehyouji(dayev.starttime) %>-
+  <%=timehyouji(dayev.starttime) %>-
+    <%if Participant.find_by(user_id:current_user.id,event_id:dayev.id).present? %>
+          ○
+  <% end %>
     <%= link_to(mojiseigen(dayev.title,30), event_path(dayev.id)) %><br>
   <% end %></td></tr>
 <% end %>
