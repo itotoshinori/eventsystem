@@ -133,3 +133,6 @@
   <%= link_to("前のページに戻る",@url) %>
 <% end %><br>
 </div>
+<% @user.each do |f| %>
+<%=f.user_id %><br>
+<% end %>
