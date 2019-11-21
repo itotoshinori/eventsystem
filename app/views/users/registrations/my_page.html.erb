@@ -1,5 +1,4 @@
-<div class="center jumbotron">
-<p><%= current_user.name+"でログイン中" if user_signed_in? %></p>
+登録されました<p><%= current_user.name+"でログイン中" if user_signed_in? %></p>
 <p><%=link_to "編集", "users/edit/" %></p>
 <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
-</div></div>
+</div>
