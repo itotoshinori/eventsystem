@@ -266,7 +266,7 @@ class EventsController < ApplicationController
     @userplus.each do |f|
       if @user.where(user_id:f.user_id).empty?
         @pts << Ptcollection.new(f.user_id,usernamereturn(f.user.id)+"さんに送る")
-        @user.new(user_id:f.user_id)
+        #@user.new(user_id:f.user_id)
       end
     end
   end
