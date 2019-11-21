@@ -258,7 +258,7 @@ class EventsController < ApplicationController
     @pts << Ptcollection.new("a","主催者に送る")
     @pts << Ptcollection.new("b","登録のみ")
     @pts << Ptcollection.new("c","参加者に送る")
-    @user=Participant.joins(:user).where(event_id:@event.id)
+    @user=Participant.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id)
     @user.each do |f|
         @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
     end
