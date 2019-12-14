@@ -5,6 +5,6 @@ class MailsysMailer < ApplicationMailer
     @str = str
     @link=link
     @mailad=mailad
-    mail(to: mailad, subject: "イベント管理システムからのお知らせです")
+    mail(to: mailad, subject:"#{@str}　開催のお知らせ")
   end
 end
