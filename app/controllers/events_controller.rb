@@ -22,6 +22,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     settingvalue
     if @event.save
+      @eventname=@event.title
       @link=URL+"events/#{@event.id}"
       @content="■新規開催イベント：#{@event.title}が登録されました。参加のご検討を願います。"
       @user=User.all
@@ -80,6 +81,7 @@ class EventsController < ApplicationController
   
   def update
     @event = Event.find(params[:id])
+    @eventname=@event.title
     settingvalue
     session[:geturl]=session[:geturl2]
     session.delete(:geturl2)
@@ -171,6 +173,7 @@ class EventsController < ApplicationController
     @event_id=@event.id
     @user=current_user
     @user_id=@user.id
+    @eventname=@event.title
     possiblecount=@event.capacity-@event.participants.count
     flashplus=""
     if comment.blank?
@@ -291,13 +294,13 @@ class EventsController < ApplicationController
   
   def sendmailsys
     @user.each do |u|
-      MailsysMailer.sendmail(@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+      MailsysMailer.sendmail(@eventname,@content,@link,u.email).deliver_later  #メーラに作成したメソッドを呼び出す。
     end
   end
   
   def sendmailsys2
     @user.each do |u|
-      MailsysMailer.sendmail(@content,@link,u.user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
+      MailsysMailer.sendmail(@eventname,@content,@link,u.user.email).deliver_later  #メーラに作成したメソッドを呼び出す。
     end
   end
   def sankatouroku

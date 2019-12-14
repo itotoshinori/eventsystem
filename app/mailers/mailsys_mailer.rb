@@ -1,10 +1,11 @@
 class MailsysMailer < ApplicationMailer
   default from: 'xgppm340@ybb.ne.jp'
 
-  def sendmail(str,link,mailad)
+  def sendmail(evnetname,str,link,mailad)
+    @eventname=evnetname
     @str = str
     @link=link
     @mailad=mailad
-    mail(to: mailad, subject:"#{@str}　開催のお知らせ")
+    mail(to: mailad, subject:"#{@eventname}　のお知らせ")
   end
 end
