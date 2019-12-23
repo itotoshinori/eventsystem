@@ -77,7 +77,7 @@ module EventsHelper
     def mojiseigen(moji,jisuu)
         kekka=moji
         if moji.length>jisuu.to_i
-            kekka=moji[0,8]+".."
+            kekka=moji[0,jisuu]+".."
         end
         kekka
     end
