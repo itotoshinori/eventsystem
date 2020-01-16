@@ -262,14 +262,17 @@ class EventsController < ApplicationController
     @pts << Ptcollection.new("b","登録のみ")
     @pts << Ptcollection.new("c","参加者に送る")
     @user=Participant.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id)
+    @uni=[]
     @user.each do |f|
         @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
+        @uni << f.user_id.to_s #配列のかぶり回避のための確認
     end
     @userplus=Comment.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id)
     #@userplus=@userplus.group(:user_id)
     @userplus.each do |f|
-      if @pts.count(f.user_id)==0
-        @pts << Ptcollection.new(f.user_id,usernamereturn(f.user_id)+"さんに送る")
+      if @uni.count(f.user_id.to_s)==0
+        @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user_id)+"さんに送る")
+        @uni << f.user_id.to_s
       end
     end
   end
