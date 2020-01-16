@@ -150,7 +150,7 @@ class EventsController < ApplicationController
       sendmailsys
       flash[:success]="キャンセル登録され、主催者にメールにて通知されました"
       if status=="full"
-        @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました。検討中の方、参加検討下さい。"
+        @content="開催イベント：#{@event.title}が満席でしたがキャンセルが出ました�������検討中の方、参加検討下さい。"
         @user=User.all
         sendmailsys
       end
@@ -265,14 +265,13 @@ class EventsController < ApplicationController
     @user.each do |f|
         @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
     end
-    
-    #@userplus=Comment.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id).group('user_id')
-    #@userplus=Comment.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id)
-    #@userplus.each do |f|
-      #if @user.where(user_id:f.user_id).empty?
-        #@pts << Ptcollection.new(f.user_id,usernamereturn(f.user.id)+"さんに送る")
-      #end
-    #end
+    @userplus=Comment.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id)
+    @userplus=@userplus.uniq.pluck(:user_id)
+    @userplus.each do |f|
+      if @pts.count(f.user_id)==0
+        @pts << Ptcollection.new(f.user_id,usernamereturn(f.user_id)+"さんに送る")
+      end
+    end
   end
   
   def settingvalue
