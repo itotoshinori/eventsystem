@@ -266,7 +266,7 @@ class EventsController < ApplicationController
         @pts << Ptcollection.new(f.user_id.to_s,usernamereturn(f.user.id)+"さんに送る")
     end
     @userplus=Comment.joins(:user).where(event_id:@event.id).where.not(user_id: @event.user_id)
-    @userplus=@userplus.uniq.pluck(:user_id)
+    #@userplus=@userplus.group(:user_id)
     @userplus.each do |f|
       if @pts.count(f.user_id)==0
         @pts << Ptcollection.new(f.user_id,usernamereturn(f.user_id)+"さんに送る")
