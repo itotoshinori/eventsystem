@@ -1,24 +1,20 @@
-# README
+伊藤利典です。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+イベント管理システム
+ネット上でイベントの登録ができ、自動的にメールにて通知できるシステムです。
 
-Things you may want to cover:
+イベント管理システム説明動画
+https://www.youtube.com/watch?v=VzEf8YfOe80&feature=youtu.be  プレビュー
 
-* Ruby version
+git hub
+https://github.com/itotoshinori/eventsystem
 
-* System dependencies
+URL
+https://enigmatic-lowlands-69028.herokuapp.com/
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+サンプルユーザー
+メール
+xgppm340@ybb.ne.jp
+パスワード
+foobar
+※サンプルユーザーでの参加登録も可能ですが、よろしければfacebook認証で会員登録で確認頂けるとありがたいです。メールでの通知も見ることができます。
